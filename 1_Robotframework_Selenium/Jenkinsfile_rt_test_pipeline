@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    stages{
+        stage('test start here'){
+            steps{
+                echo 'robotframework test suite start'
+            }
+        }
+
+        stage('Get code from Github') {
+            steps{
+            checkout(
+                    [$class: 'GitSCM', branches: [[name: '*/master']],
+                     doGenerateSubmoduleConfigurations: false,
+                     extensions: [],
+                     submoduleCfg: [],
+                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+            )
+            sh 'exit 0'
+            }
+        }
+        stage('execute web page auto test'){
+            steps{
+                
+                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
+                 {
+                    sh 'robot --report page_test.html ./python_robot_framework/page_auto_test.robot'
+                 }
+
+            }
+        }
+        stage('execute api auto test'){
+            steps{
+
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
+                 {
+                    sh 'robot --report api_test.html ./python_robot_framework/api_auto_test.robot'
+                 }
+            }
+        }
+
+    }
+    post {
+        always {
+            robot outputPath: '.', passThreshold: 80.0, unstableThreshold: 70.0
+            archiveArtifacts artifacts: '*.html', fingerprint: true
+
+        } }
+
+}
