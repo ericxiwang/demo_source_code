@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block data_grid %}
+
+<div class='panel panel-danger product_list'>
+	<table class="table table-dark table-bordered">
+		<thead>
+			<th scope="col">id</th>
+      		<th scope="col">name</th>
+      		<th scope="col">description</th>
+      		<th scope="col">count</th>
+		</thead>
+		<tbody>
+		{% for each_album in all_albums_info %}
+		<tr>   
+		<td style="width:100px;">
+			{{ each_album.id }}
+		</td>
+		<td style="width:200px;">
+			{{ each_album.name }}
+		</td>
+		<td style="width:300px;">
+			{{ each_album.description }}
+		</td>
+		<td style="width:100px;">
+			{{ each_album.count }}
+		</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+{% endblock %}

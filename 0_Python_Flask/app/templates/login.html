@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block login %}
+
+<script src="../static/js/validator.min.js"></script>
+<form action='/login' method='POST' class='form-horizontal' role='form' data-toggle='validator'>
+<div class='col-md-6 col-lg-6 panel panel-danger' >
+    <h3 class='form-signin-heading'>user_login</h3>
+
+    <div class='form-group'>
+        <div class='col-md-6'>
+            <label>user_email</label>
+            <input class='form-control' id="user_name" name='email' placeholder='input email' type=text required>
+        </div>
+    </div>
+
+
+    <div class='form-group'>
+        <div class='col-md-6'>
+
+        <label>user_password</label>
+        <input class='form-control' id="user_password" name='user_password' placeholder='input password' type=password required>
+    </div>
+    </div>
+
+    <div class='form-group'>
+        <div class='col-md-6'>
+            <button class='btn btn-lg btn-danger btn-block' id="login" type='submit'>Login</button>
+        </div>
+    </div>
+    {{ error_code }}
+</div>
+</form>
+
+
+
+
+{% endblock %}

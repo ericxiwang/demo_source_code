@@ -1,0 +1,50 @@
+# Default values for CI_CD_helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+flask-example:
+  fullnameOverride: flask-example
+  image:
+    repository: ericxiwang/flask
+    pullPolicy: IfNotPresent
+    tag: "010325"
+  service:
+    type: ClusterIP
+    port: 8080
+  mode: "dev" # "dev" or "prod"
+jenkins-server:
+  fullnameOverride: jenkins-server
+  image: docker.io/ericxiwang/jenkins
+  tag: "011525"
+  jenkins-port: 8080
+selenium-service:
+  fullnameOverride: selenium-service
+  image: 
+    repository: selenium/standalone-chrome
+    pullPolicy: IfNotPresent
+    tag: "124.0"
+  ports:
+    port-1: 4444
+    port-2: 4443
+    port-3: 4442
+    port-4: 7900
+mysql-service:
+  fullnameOverride: mysql-service
+  image:
+    repository: mysql
+    pullPolicy: IfNotPresent
+    tag: latest 
+  ports:
+    containerPort: 3306
+  mountpath: /mnt/data
+
+playwright-service:
+  fullnameOverride: playwright-service
+  image:
+    repository: mcr.microsoft.com/playwright
+    pullPolicy: IfNotPresent
+    tag: v1.48.0-jammy
+  ports:
+    containerPort: 3000

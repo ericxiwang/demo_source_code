@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-example
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: ericxiwang/flask:010325
+          volumeMounts:
+            - name: flask-config
+              mountPath: /opt/app/config.json
+              subPath: config.json
+
+        - name: nginx
+          image: nginx
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: flask-config
+          configMap:
+            name: flask-config
+            items:
+              - key: config.json
+                path: config.json
