@@ -14,4 +14,4 @@
 * robot page_auto_test.robot
 
 ### with parameters(for CI command line running on robotframework agent)
-* robot -v  browser:Chrome -v selenium_grid_url:http://10.0.0.88:4444/wd/hub -v FLASK_CLOUD_URL:http://10.0.0.89:8080 -v user_name:admin@admin.com     page_auto_test.robot
+* robot -v  browser:Chrome -v selenium_grid_url:http://selenium-service:4444/wd/hub -v FLASK_CLOUD_URL:http://flask-example:8080 -v user_name:admin@admin.com     page_auto_test.robot

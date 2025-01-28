@@ -3,7 +3,7 @@
 > - sqlite3 
 > - static html template(j2)
 > - binary file(images)
-> - logn libs
+> - login libs
 
 
 > ### docker build info
