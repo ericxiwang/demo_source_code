@@ -10,7 +10,7 @@ pipeline {
         stage('Get code from Github') {
             steps{
             checkout(
-                    [$class: 'GitSCM', branches: [[name: '*/master']],
+                    [$class: 'GitSCM', branches: [[name: '*/main']],
                      doGenerateSubmoduleConfigurations: false,
                      extensions: [],
                      submoduleCfg: [],
