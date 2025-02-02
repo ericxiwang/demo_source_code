@@ -10,18 +10,18 @@ pipeline {
         stage('Get code from Github') {
             steps{
             checkout(
-                    [$class: 'GitSCM', branches: [[name: '*/master']],
+                    [$class: 'GitSCM', branches: [[name: '*/main']],
                      doGenerateSubmoduleConfigurations: false,
                      extensions: [],
                      submoduleCfg: [],
-                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/demo_source_code.git']]]
             )
             }
         }
         stage('execute web page auto test'){
             steps{
                  script {
-                        build_path = ("${WORKSPACE}"+"/"+"pytest_playwright")
+                        build_path = ("${WORKSPACE}"+"/"+"2_Pytest_Playwright")
                 }
 
                  catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
