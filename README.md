@@ -13,6 +13,12 @@ Folders for CD, Infrastructure as Code
 #### [6_Ansible_Playbooks](https://github.com/ericxiwang/demo_source_code/tree/main/6_Ansible_Playbooks)
 #### [7_K8S_Manifest](https://github.com/ericxiwang/demo_source_code/tree/main/7_K8S_Manifest)
 
+-----------
+Folders Documents(Jenkins,AWX,ArgoCD etc)
+#### [K8S manifest](https://github.com/ericxiwang/demo_source_code/tree/main/7_K8S_Manifest/README.md)
+#### [ArgoCD invoke K8S helm](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/ArgoCD/README.md)
+#### [AWX invoke ansible playbooks](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/awx/README.md)
+#### [Jenkins setup autotest pipline](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/jenkins/README.md)
 
 
 ___
