@@ -41,6 +41,6 @@
     update_cache: True
 - name: Post installation, add current user to docker group
   user:
-    name: {{ ansible_user }}
+    name: "{{ ansible_user }}"
     group: docker
     append: yes
