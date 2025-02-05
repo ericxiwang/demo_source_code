@@ -2,3 +2,4 @@
   become: yes
   tasks:
     - import_tasks: ../roles/linux-sys-info/tasks/main.yml
+

@@ -1,0 +1,6 @@
+- name: include inst-docker.yml
+  include_tasks: inst-docker.yml
+- name: include inst-minikube
+  include_tasks: inst-minikube.yml
+
+

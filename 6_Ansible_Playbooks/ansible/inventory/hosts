@@ -4,6 +4,8 @@ ansible_user=eric
 ansible_ssh_pass=qa1234
 
 
+[minikube]
+minikube-host   ansible_host=10.0.0.248
 
 [k8s_master]
 k8s-master    ansible_host=10.0.0.92

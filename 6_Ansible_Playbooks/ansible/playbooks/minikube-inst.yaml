@@ -1,0 +1,5 @@
+- hosts: minikube-host
+  become: yes
+  tasks:
+
+    - import_tasks: ../roles/minikube-init/tasks/main.yml
