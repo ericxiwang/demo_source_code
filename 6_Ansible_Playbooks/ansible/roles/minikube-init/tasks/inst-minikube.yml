@@ -1,11 +1,19 @@
 ---
 - name: Grasp minikube package
   shell: |
-    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+    curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 - name: Install minikube
   shell: |
-    dpkg -i minikube_latest_amd64.deb
+    install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
 - name: Start minikube
   shell: |
     minikube start
+
+- name: download kubectl
+  shell: |
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+- name: install kubectl
+  shell: |
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
