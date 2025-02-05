@@ -1,10 +1,10 @@
 ---
 - name: Grasp minikube package
   shell: |
-    curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-darwin-amd64
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
 - name: Install minikube
   shell: |
-    install minikube-darwin-amd64 /usr/local/bin/minikube
+    sudo dpkg -i minikube_latest_amd64.deb
 
 - name: Start minikube
   shell: |
