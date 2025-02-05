@@ -6,6 +6,9 @@
   shell: |
     install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
+- name: Set minikube driver to docker
+  shell: |
+    minikube config set driver docker
 - name: Start minikube
   shell: |
     minikube start

@@ -40,7 +40,5 @@
     state: latest
     update_cache: True
 - name: Post installation, add current user to docker group
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
+  shell: |
+    sudo usermod -aG docker {{ ansible_user }} && newgrp docker
