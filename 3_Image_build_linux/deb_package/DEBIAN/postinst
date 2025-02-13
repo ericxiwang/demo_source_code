@@ -1,0 +1,44 @@
+#!/bin/bash
+set -x
+
+echo "======= add related folders ======="
+mkdir -p /data/XXXXX/images/uploaded
+mkdir -p /data/XXXXX/images/camera
+mkdir -p /data/XXXXX/images/captioned
+mkdir -p /data/XXXXX/images/detected
+mkdir -p /data/XXXXX/images/meters/uploaded
+mkdir -p /data/XXXXX/videos/camera
+mkdir -p /data/XXXXX/videos/uploaded
+mkdir -p /data/XXXXX/videos/captioned
+mkdir -p /data/XXXXX/videos/searched
+mkdir -p /data/XXXXX/models
+mkdir -p /preserve/logs
+
+
+
+echo "======= create label file ======="
+lshw -c network | grep serial | head -n 1 | awk '{ print $2 }' > /tmp/SN
+base64 /tmp/SN > /etc/loopback.conf
+sed -i 's/^/'$(($RANDOM%10))'/' /etc/loopback.conf
+
+
+
+echo "======= grant access right ======="
+chmod a+r /etc/loopback.conf
+chmod -R 777 /data
+chmod -R 777 /preserve
+chown -R nginx:nginx /
+chown -R nginx:nginx /preserve
+chown -R nginx:nginx /opt/XXXXX
+chmod a+x -R /opt/XXXXX
+
+
+echo "======== sync nginx.conf ========"
+cp /opt/XXXXX/conf/nginx.conf /usr/local/nginx/conf/.
+
+echo "======== enable systemd service ======"
+systemctl daemon-reload
+systemctl restart nginx standalone
+systemctl enable standalone
+
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+case "$1" in
+        install)
+        #create user and group when first time installation
+        getent group nginx >/dev/null || groupadd -g 1007 -r nginx
+        getent passwd nginx >/dev/null || \
+        useradd -r -u 1007 -g awrun -s /sbin/nologin \
+        -d /tmp -c "nginx" nginx
+        echo 'nginx ALL=(ALL) NOPASSWD:/bin/systemctl start nginx,/bin/systemctl stop nginx,/bin/systemctl restart nginx' > /etc/sudoers.d/nginx
+        echo 'nginx ALL=(ALL) NOPASSWD:/usr/bin/apt-get remove,/usr/bin/dpkg' >> /etc/sudoers.d/nginx
+        ;;
+        update|abort-upgrade)
+        echo "just update"
+        ;;
+esac
+exit 0

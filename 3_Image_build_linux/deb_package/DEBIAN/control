@@ -1,0 +1,7 @@
+Source: NGINX
+Package: NGINX.XXXXX
+Version: deb_version
+Section: utils
+Architecture: all
+Maintainer: Xi Wang <xi.wang@xsight.ai>
+Description: NGINX debian package DIY
