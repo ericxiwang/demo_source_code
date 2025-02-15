@@ -1,2 +1,2 @@
 make clean
-make version=$version deb
+make product_base=1.20 version=100

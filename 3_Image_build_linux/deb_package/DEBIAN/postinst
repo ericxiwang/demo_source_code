@@ -23,8 +23,9 @@ sed -i 's/^/'$(($RANDOM%10))'/' /etc/loopback.conf
 
 
 echo "======== change nginx config ====="
-sed -i s/"nginx!"/$(echo hostname)/g /usr/share/nginx/html/index.html
-sed -i s/"user nginx"/"user nginxdemo"/g /etc/nginx/nginx.conf
+get_hostname=$(hostname)
+sed -i s/"nginx!"/$get_hostname/g /usr/share/nginx/html/index.html
+
 
 echo "======== enable systemd service ======"
 systemctl daemon-reload

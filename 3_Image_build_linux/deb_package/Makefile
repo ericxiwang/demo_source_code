@@ -25,14 +25,15 @@ ifndef product_base
 endif
 ifndef version
 	$(error "version" is undefined. You can define it by setting environmental variable "version". For exampleL export version=25)
-endi
+endif
 
 .PHONY: prepare
 prepare:
 	mkdir -p $(EXPLODED_FILES)
 	tar -xvf nginx_binary.tar -C $(EXPLODED_FILES)
+	cp -r `pwd`/DEBIAN $(EXPLODED_FILES)
 	sed -i s/"deb_version"/$(DEB_VERSION)/g $(EXPLODED_FILES)/DEBIAN/control
-
+	sed -i s/"XXXXX"/$(PRODUCT_BASE)/g $(EXPLODED_FILES)/DEBIAN/control
 
 
 .PHONY: build
@@ -47,7 +48,8 @@ build: prepare
 	cp -r $(EXPLODED_FILES)/nginx_binary/etc/* build/buildroot/$(NGINX_CONF)
 	cp -r $(EXPLODED_FILES)/nginx_binary/lib/* build/buildroot/$(NGINX_LIB)
 	cp -r $(EXPLODED_FILES)/nginx_binary/var/* build/buildroot/$(NGINX_VAR)
-
+	cp -r $(EXPLODED_FILES)/DEBIAN build/buildroot
+	sed -i s/"user  nginx"/"user  nginxdemo"/g build/buildroot/$(NGINX_CONF)/nginx/nginx.conf
 
 .PHONT: deb
 deb: build
