@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf /etc/sudoers.d/nginx
+rm -rf /etc/sudoers.d/nginxdemo

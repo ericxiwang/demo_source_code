@@ -22,23 +22,13 @@ base64 /tmp/SN > /etc/loopback.conf
 sed -i 's/^/'$(($RANDOM%10))'/' /etc/loopback.conf
 
 
-
-echo "======= grant access right ======="
-chmod a+r /etc/loopback.conf
-chmod -R 777 /data
-chmod -R 777 /preserve
-chown -R nginx:nginx /
-chown -R nginx:nginx /preserve
-chown -R nginx:nginx /opt/XXXXX
-chmod a+x -R /opt/XXXXX
-
-
-echo "======== sync nginx.conf ========"
-cp /opt/XXXXX/conf/nginx.conf /usr/local/nginx/conf/.
+echo "======== change nginx config ====="
+sed -i s/"nginx!"/$(echo hostname)/g /usr/share/nginx/html/index.html
+sed -i s/"user nginx"/"user nginxdemo"/g /etc/nginx/nginx.conf
 
 echo "======== enable systemd service ======"
 systemctl daemon-reload
-systemctl restart nginx standalone
-systemctl enable standalone
+systemctl restart nginx
+systemctl enable nginx
 
 

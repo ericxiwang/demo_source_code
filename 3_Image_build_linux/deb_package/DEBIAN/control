@@ -3,5 +3,5 @@ Package: NGINX.XXXXX
 Version: deb_version
 Section: utils
 Architecture: all
-Maintainer: Xi Wang <xi.wang@xsight.ai>
+Maintainer: Xi Wang <gowest.wang@gmail.com>
 Description: NGINX debian package DIY

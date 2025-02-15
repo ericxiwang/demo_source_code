@@ -10,7 +10,7 @@ If trying this on your machine:
 
 ```
 make clean
-version=2.1 BUILD_NUMBER=1 make rpm
+version=1.20 BUILD_NUMBER=1 make rpm
 ```
 
 If integrating with jenkins:
