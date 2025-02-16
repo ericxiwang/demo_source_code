@@ -1,13 +1,14 @@
 %define name nginxdemo
+%define product_base %{PRODUCT_BASE}
 %define version %{VERSION}
-%define release %{RELEASE}
+%define _unpackaged_files_terminate_build 0
 # Disable all post processing, including jar repacking
 %global __os_install_post %{nil}
 
 Name: %{name}
-RPM_VERSION: %{version}
-PRODUCT_BASE: %{product_base}
 
+RELEASE: %{product_base}
+VERSION: %{version}
 Summary: Nginx RPM binary build demo
 Group: Development/Tools
 License: Eric Wang
@@ -48,17 +49,17 @@ fi
 
 %files
 %defattr(-,nginxdemo,nginxdemo,-)
-mkdir -p /data/XXXXX/images/uploaded
-mkdir -p /data/XXXXX/images/camera
-mkdir -p /data/XXXXX/images/captioned
-mkdir -p /data/XXXXX/images/detected
-mkdir -p /data/XXXXX/images/meters/uploaded
-mkdir -p /data/XXXXX/videos/camera
-mkdir -p /data/XXXXX/videos/uploaded
-mkdir -p /data/XXXXX/videos/captioned
-mkdir -p /data/XXXXX/videos/searched
-mkdir -p /data/XXXXX/models
-mkdir -p /preserve/logs
+/data/XXXXX/images/uploaded
+/data/XXXXX/images/camera
+/data/XXXXX/images/captioned
+/data/XXXXX/images/detected
+/data/XXXXX/images/meters/uploaded
+/data/XXXXX/videos/camera
+/data/XXXXX/videos/uploaded
+/data/XXXXX/videos/captioned
+/data/XXXXX/videos/searched
+/data/XXXXX/models
+/preserve/logs
 %config(noreplace) /etc/nginx/conf.d/default.conf
 %config(noreplace) /etc/nginx/nginx.conf
 %config(noreplace) /etc/logrotate.d/nginx
