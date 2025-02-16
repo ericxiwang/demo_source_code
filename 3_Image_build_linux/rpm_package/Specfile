@@ -65,15 +65,19 @@ fi
 %files
 %defattr(-,nginxdemo,nginxdemo,-)
 /data
-/usr/lib/systemd/system/nginx*
+/usr/lib/systemd/system/nginx.service
+/usr/lib/systemd/system/nginx-debug.service
 /usr/lib64/nginx/*
 /usr/libexec/initscripts/legacy-actions/nginx/*
 /usr/sbin/nginx
 /usr/sbin/nginx-debug
-/usr/share/*
-/var/*
+/usr/share/doc/nginx-1.20.2/*
+/usr/share/man/man8/nginx.8.gz
+/usr/share/nginx/*
+/var/cache/nginx/*
+/var/log/nginx/*
 
-%config(noreplace) /etc/nginx/conf.d/default.conf
+
 %config(noreplace) /etc/nginx/*
 %config(noreplace) /etc/logrotate.d/nginx
 
