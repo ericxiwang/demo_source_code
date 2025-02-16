@@ -65,8 +65,6 @@ fi
 %files
 %defattr(-,nginxdemo,nginxdemo,-)
 /data
-/etc/nginx/*
-/etc/logrotate.d/*
 /usr/lib/systemd/system/nginx*
 /usr/lib64/nginx/*
 /usr/libexec/initscripts/legacy-actions/nginx/*
@@ -76,6 +74,6 @@ fi
 /var/*
 
 %config(noreplace) /etc/nginx/conf.d/default.conf
-%config(noreplace) /etc/nginx/nginx.conf
+%config(noreplace) /etc/nginx/*
 %config(noreplace) /etc/logrotate.d/nginx
 
