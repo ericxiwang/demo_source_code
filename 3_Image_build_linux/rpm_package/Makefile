@@ -36,6 +36,7 @@ build: prepare
 	echo "Building nginxdemo rpm package"
 	# create base folders for nginx
 	mkdir -p build/buildroot
+	mkdir -p build/buildroot/data
 	#mkdir -p build/buildroot/$(NGINX_BASE)
 	#mkdir -p build/buildroot/$(NGINX_CONF)
 	#mkdir -p build/buildroot/$(NGINX_VAR)
