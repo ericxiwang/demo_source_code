@@ -2,9 +2,9 @@
 PRODUCT_BASE = $(product_base)
 VERSION = $(version)
 
-NGINX_BASE = /usr
-NGINX_CONF = /etc
-NGINX_VAR = /var
+#NGINX_BASE = /usr
+#NGINX_CONF = /etc
+#NGINX_VAR = /var
 EXPLODED_FILES = $(CURDIR)/build
 
 
@@ -35,15 +35,16 @@ prepare:
 build: prepare
 	echo "Building nginxdemo rpm package"
 	# create base folders for nginx
-	mkdir -p build/buildroot/$(NGINX_BASE)
-	mkdir -p build/buildroot/$(NGINX_CONF)
-	mkdir -p build/buildroot/$(NGINX_VAR)
-	mkdir -p build/buildroot/data
+	#mkdir -p build/buildroot/$(NGINX_BASE)
+	#mkdir -p build/buildroot/$(NGINX_CONF)
+	#mkdir -p build/buildroot/$(NGINX_VAR)
+	#mkdir -p build/buildroot/data
 	#mkdir -p build/buildroot/$(UI_BASE_ML)
 
-	cp -r $(EXPLODED_FILES)/nginx_binary/usr/* build/buildroot/$(NGINX_BASE)
-	cp -r $(EXPLODED_FILES)/nginx_binary/etc/* build/buildroot/$(NGINX_CONF)
-	cp -r $(EXPLODED_FILES)/nginx_binary/var/* build/buildroot/$(NGINX_VAR)
+	#cp -r $(EXPLODED_FILES)/nginx_binary/usr/* build/buildroot/$(NGINX_BASE)
+	#cp -r $(EXPLODED_FILES)/nginx_binary/etc/* build/buildroot/$(NGINX_CONF)
+	#cp -r $(EXPLODED_FILES)/nginx_binary/var/* build/buildroot/$(NGINX_VAR)
+	cp -r $(EXPLODED_FILES)/nginx_binary/* build/buildroot/
 
 
 .PHONY: rpm
