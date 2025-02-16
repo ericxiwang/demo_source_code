@@ -1,48 +1,44 @@
-%define name blueice-smart-datacenter
+%define name nginxdemo
 %define version %{VERSION}
 %define release %{RELEASE}
 # Disable all post processing, including jar repacking
 %global __os_install_post %{nil}
 
 Name: %{name}
-Version: %{version}
-Release: %{release}
+RPM_VERSION: %{version}
+PRODUCT_BASE: %{product_base}
 
-Summary: Blueice Smart-Datacenter App
+Summary: Nginx RPM binary build demo
 Group: Development/Tools
-License: Bluice Inc.
-#Source: terminal_server.zip
-Packager: Blueice team <northstar@istuary.com>
-Requires: nginx
+License: Eric Wang
+Packager: Eric Wang <gowest.wang@gmail.com>
+Requires: make
 Requires(pre): /usr/sbin/useradd /usr/bin/systemctl
 Requires(post): /usr/bin/systemctl
 Autoreq: 0
 Autoprov: 0
 
 %description
-Blueice Data Center Application
+Nginx Binary build by eric wang
 
 %pre
-# Add new host_ip under /data
-echo $(ip route | grep src | awk '{ print $9 }') > /data/host_ip
-# Add the "blueice" user
-getent group blueice >/dev/null || groupadd -g 1007 -r blueice
-getent passwd blueice >/dev/null || \
-  useradd -r -u 1007 -g blueice -s /sbin/nologin \
-      -d /opt/blueice -c "Blueice" blueice
+
+# Add the nginx user
+getent group nginxdemo >/dev/null || groupadd -g 1007 -r nginxdemo
+getent passwd nginxdemo >/dev/null || \
+        useradd -r -u 1007 -g nginxdemo -s /sbin/nologin \
+        -d /tmp -c "nginxdemo" nginxdemo
       exit 0
+echo 'nginxdemo ALL=(ALL) NOPASSWD:/bin/systemctl start nginx,/bin/systemctl stop nginx,/bin/systemctl restart nginx' > /etc/sudoers.d/nginxdemo
+echo 'nginxdemo ALL=(ALL) NOPASSWD:/usr/bin/apt-get remove,/usr/bin/dpkg' >> /etc/sudoers.d/nginxdemo
+
 %post
 /usr/bin/systemctl daemon-reload
-/usr/bin/systemctl enable smart-datacenter
-#echo > /data/sw/version
-#rpm -qa | grep blueice-smart-datacenter > /data/sw/version
-echo %{name}-%{release}-%{version} > /data/sw/version
-
+/usr/bin/systemctl enable nginx
+echo "======== change nginx config ====="
+get_hostname=$(hostname)
+sed -i s/"nginx!"/$get_hostname/g /usr/share/nginx/html/index.html
 %preun
-if [ $1 = 0 ]; then
-        /usr/bin/systemctl stop smart-datacenter > /dev/null 2>&1
-        /usr/bin/systemctl disable smart-datacenter
-fi       
 
 
 %postun
@@ -51,20 +47,19 @@ if [ $1 = 0 ]; then
 fi
 
 %files
-%defattr(-,blueice,blueice,-)
-/opt/blueice/
-/opt/blueice/*
-/usr/share/nginx/html/smart-datacenter-ui
-/usr/share/nginx/html/smart-datacenter-ui/*
-#/usr/share/nginx/html/smart-datacenter-ml-ui
-#/usr/share/nginx/html/smart-datacenter-ml-ui/*
-/data
-/data/sw/
-/data/sw/*
-#%config(noreplace) /data/sw/southwest.conf
-#%config(noreplace) /data/sw/log4j.xml
-#%config(noreplace) /opt/blueice/smart-datacenter/conf/southwest.conf
-#%config(noreplace) /opt/blueice/smart-datacenter/conf/log4j.xml
-%config(noreplace) /opt/blueice/smart-datacenter/conf/custom.conf
-/preserve/logs
-%attr(-,root,root) /usr/lib/systemd/system/smart-datacenter.service
+%defattr(-,nginxdemo,nginxdemo,-)
+mkdir -p /data/XXXXX/images/uploaded
+mkdir -p /data/XXXXX/images/camera
+mkdir -p /data/XXXXX/images/captioned
+mkdir -p /data/XXXXX/images/detected
+mkdir -p /data/XXXXX/images/meters/uploaded
+mkdir -p /data/XXXXX/videos/camera
+mkdir -p /data/XXXXX/videos/uploaded
+mkdir -p /data/XXXXX/videos/captioned
+mkdir -p /data/XXXXX/videos/searched
+mkdir -p /data/XXXXX/models
+mkdir -p /preserve/logs
+%config(noreplace) /etc/nginx/conf.d/default.conf
+%config(noreplace) /etc/nginx/nginx.conf
+%config(noreplace) /etc/logrotate.d/nginx
+

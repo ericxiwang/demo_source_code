@@ -1,9 +1,11 @@
 #--------------------------------------------------------------------- Variables
-ST_VERSION = $(version)
-ST_BUILD_NUMBER = "$(BUILD_NUMBER).$(BUILD_BRANCH)"
-ST_BASE = /opt/blueice/smart-datacenter
-UI_BASE = /usr/share/nginx/html/smart-datacenter-ui
-#UI_BASE_ML = /usr/share/nginx/html/smart-datacenter-ml-ui
+PRODUCT_BASE = $(product_base)
+VERSION = $(version)
+
+NGINX_BASE = /usr
+NGINX_CONF = /etc
+NGINX_LIB = /lib
+NGINX_VAR = /var
 EXPLODED_FILES = $(CURDIR)/build
 
 
@@ -16,36 +18,35 @@ clean:
 
 .PHONY: check
 check:
-ifndef version
-	$(error "version" is undefined. Please define it by setting environmental variable "version". For example: export version=2.2)
+ifndef product_base
+	$(error "product_base" is undefined. Please define it by setting environmental variable "product_base". For example: export product_base=1.20)
 endif
-ifndef BUILD_NUMBER
-	$(error BUILD_NUMBER is undefined. You can define it by setting environmental variable BUILD_NUMBER. For exampleL export BUILD_NUMBER=25)
+ifndef product_base
+	$(error product_base is undefined. You can define it by setting environmental variable "product_base". For exampleL export product_base=101)
 endif
 
 .PHONY: prepare
 prepare:
 	mkdir -p $(EXPLODED_FILES)
-	mkdir -p $(EXPLODED_FILES)/smart-datacenter-ui
-	#mkdir -p $(EXPLODED_FILES)/smart-datacenter-ml-ui
-	unzip  $(CURDIR)/server-$(version)-* -d $(EXPLODED_FILES)
-	tar xzvf $(CURDIR)/smart_datacenter_ui-${version}-*.tar -C $(EXPLODED_FILES)/smart-datacenter-ui
+	tar -xvf nginx_binary.tar -C $(EXPLODED_FILES)
+
+
 
 .PHONY: build
 build: prepare
 	echo "Building $(ST_VERSION)"
-	# Priming buildroot with exploded JMeter
-	mkdir -p build/buildroot/$(ST_BASE)
-	mkdir -p build/buildroot/$(UI_BASE)
+	# create base folders for nginx
+	mkdir -p build/buildroot/$(NGINX_BASE)
+	mkdir -p build/buildroot/$(NGINX_CONF)
+	mkdir -p build/buildroot/$(NGINX_LIB)
+	mkdir -p build/buildroot/$(NGINX_VAR)
 	#mkdir -p build/buildroot/$(UI_BASE_ML)
-	mkdir -p build/buildroot/data/sw
-	mkdir -p build/buildroot/preserve/logs
-	mkdir -p build/buildroot/usr/lib/systemd/system/
-	cp -r $(EXPLODED_FILES)/server-$(version)-*/* build/buildroot/$(ST_BASE)/
-	cp custom.conf build/buildroot/$(ST_BASE)/conf/
-	cp -r $(EXPLODED_FILES)/server-$(version)-*/conf/* build/buildroot/data/sw
-	cp -r $(EXPLODED_FILES)/smart-datacenter-ui/dist/* build/buildroot/$(UI_BASE)/
-	cp smart-datacenter.service build/buildroot/usr/lib/systemd/system/
+
+	cp -r $(EXPLODED_FILES)/nginx_binary/usr/* build/buildroot/$(NGINX_BASE)
+	cp -r $(EXPLODED_FILES)/nginx_binary/etc/* build/buildroot/$(NGINX_CONF)
+	cp -r $(EXPLODED_FILES)/nginx_binary/lib/* build/buildroot/$(NGINX_LIB)
+	cp -r $(EXPLODED_FILES)/nginx_binary/var/* build/buildroot/$(NGINX_VAR)
+
 
 
 
@@ -54,8 +55,8 @@ rpm: build
 	rpmbuild -bb                            \
 	         --buildroot $(CURDIR)/build/buildroot    \
 	         --define="_rpmdir ./build"     \
+	         --define="PRODUCT_BASE $(product_base)"  \
 	         --define="VERSION $(version)"  \
-	         --define="RELEASE $(ST_BUILD_NUMBER)"  \
 	         --define="__prefix /"    \
 	         --define="_target_os Linux"    \
 	         Specfile

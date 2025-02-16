@@ -10,7 +10,7 @@ If trying this on your machine:
 
 ```
 make clean
-version=1.20 BUILD_NUMBER=1 make rpm
+product_base=1.20 version=101  make rpm
 ```
 
 If integrating with jenkins:
@@ -22,13 +22,3 @@ make rpm
 ```
 
 RPM can be found in `build/x86_64/`
-
-```yum --showduplicates list | grep blueice```
-```
-output sample:
-blueice-smart-datacenter.x86_64          2.1-51.dev                      northstar-development
-blueice-smart-datacenter.x86_64          2.1-52.release                  northstar-production
-```
-yum install <package name>-<version info>
-
-```yum install blueice-smart-datacenter-2.1-52.release ```
