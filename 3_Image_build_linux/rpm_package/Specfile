@@ -33,6 +33,20 @@ getent passwd nginxdemo >/dev/null || \
 echo 'nginxdemo ALL=(ALL) NOPASSWD:/bin/systemctl start nginx,/bin/systemctl stop nginx,/bin/systemctl restart nginx' > /etc/sudoers.d/nginxdemo
 echo 'nginxdemo ALL=(ALL) NOPASSWD:/usr/bin/apt-get remove,/usr/bin/dpkg' >> /etc/sudoers.d/nginxdemo
 
+mkdir -p /data/XXXXX/images/uploaded
+mkdir -p /data/XXXXX/images/camera
+mkdir -p /data/XXXXX/images/captioned
+mkdir -p /data/XXXXX/images/detected
+mkdir -p /data/XXXXX/images/meters/uploaded
+mkdir -p /data/XXXXX/videos/camera
+mkdir -p /data/XXXXX/videos/uploaded
+mkdir -p /data/XXXXX/videos/captioned
+mkdir -p /data/XXXXX/videos/searched
+mkdir -p /data/XXXXX/models
+mkdir -p /preserve/logs
+
+
+
 %post
 /usr/bin/systemctl daemon-reload
 /usr/bin/systemctl enable nginx

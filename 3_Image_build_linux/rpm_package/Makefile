@@ -44,20 +44,6 @@ build: prepare
 	cp -r $(EXPLODED_FILES)/nginx_binary/etc/* build/buildroot/$(NGINX_CONF)
 	cp -r $(EXPLODED_FILES)/nginx_binary/var/* build/buildroot/$(NGINX_VAR)
 
-	mkdir -p /data/XXXXX/images/uploaded
-	mkdir -p /data/XXXXX/images/camera
-	mkdir -p /data/XXXXX/images/captioned
-	mkdir -p /data/XXXXX/images/detected
-	mkdir -p /data/XXXXX/images/meters/uploaded
-	mkdir -p /data/XXXXX/videos/camera
-	mkdir -p /data/XXXXX/videos/uploaded
-	mkdir -p /data/XXXXX/videos/captioned
-	mkdir -p /data/XXXXX/videos/searched
-	mkdir -p /data/XXXXX/models
-	mkdir -p /preserve/logs
-
-
-
 
 .PHONY: rpm
 rpm: build
