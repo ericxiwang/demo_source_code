@@ -38,6 +38,7 @@ build: prepare
 	mkdir -p build/buildroot/$(NGINX_BASE)
 	mkdir -p build/buildroot/$(NGINX_CONF)
 	mkdir -p build/buildroot/$(NGINX_VAR)
+	mkdir -p build/buildroot/data
 	#mkdir -p build/buildroot/$(UI_BASE_ML)
 
 	cp -r $(EXPLODED_FILES)/nginx_binary/usr/* build/buildroot/$(NGINX_BASE)

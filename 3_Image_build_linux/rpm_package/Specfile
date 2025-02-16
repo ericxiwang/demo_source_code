@@ -53,6 +53,7 @@ mkdir -p /preserve/logs
 echo "======== change nginx config ====="
 get_hostname=$(hostname)
 sed -i s/"nginx!"/$get_hostname/g /usr/share/nginx/html/index.html
+
 %preun
 
 
@@ -63,17 +64,7 @@ fi
 
 %files
 %defattr(-,nginxdemo,nginxdemo,-)
-/data/XXXXX/images/uploaded
-/data/XXXXX/images/camera
-/data/XXXXX/images/captioned
-/data/XXXXX/images/detected
-/data/XXXXX/images/meters/uploaded
-/data/XXXXX/videos/camera
-/data/XXXXX/videos/uploaded
-/data/XXXXX/videos/captioned
-/data/XXXXX/videos/searched
-/data/XXXXX/models
-/preserve/logs
+/data
 %config(noreplace) /etc/nginx/conf.d/default.conf
 %config(noreplace) /etc/nginx/nginx.conf
 %config(noreplace) /etc/logrotate.d/nginx
