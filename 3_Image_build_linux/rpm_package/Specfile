@@ -63,7 +63,7 @@ if [ $1 = 0 ]; then
 fi
 
 %files
-%defattr(-,nginxdemo,nginxdemo,-)
+%defattr(755,root,root,-)
 /data
 /usr/lib/systemd/system/nginx.service
 /usr/lib/systemd/system/nginx-debug.service
@@ -74,8 +74,8 @@ fi
 /usr/share/doc/nginx-1.20.2/*
 /usr/share/man/man8/nginx.8.gz
 /usr/share/nginx/*
-/var/cache/nginx/*
-/var/log/nginx/*
+/var/cache/nginx
+/var/log/nginx
 
 
 %config(noreplace) /etc/nginx/*
