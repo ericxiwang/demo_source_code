@@ -65,13 +65,10 @@ fi
 %files
 %defattr(-,nginxdemo,nginxdemo,-)
 /data
-/etc/nginx
 /etc/nginx/*
 /etc/logrotate.d/*
 /usr/lib/systemd/system/nginx*
-/usr/lib64/nginx
 /usr/lib64/nginx/*
-/usr/libexec/initscripts/legacy-actions/nginx
 /usr/libexec/initscripts/legacy-actions/nginx/*
 /usr/sbin/nginx
 /usr/sbin/nginx-debug
