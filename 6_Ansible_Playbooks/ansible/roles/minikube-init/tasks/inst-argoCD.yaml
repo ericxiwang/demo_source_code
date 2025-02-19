@@ -1,0 +1,15 @@
+---
+- name: create namespace for argocd
+  k8s:
+    name: argocd
+    api_version: v1
+    kind: namespace
+    state: present
+
+- name: remote apply argocd deployment
+  k8s:
+    state: present
+    api_version: v1
+    src: https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
+    apply: true
+    namespace: argocd

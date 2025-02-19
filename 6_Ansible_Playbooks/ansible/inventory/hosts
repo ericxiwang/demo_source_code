@@ -5,15 +5,13 @@ ansible_ssh_pass=qa1234
 
 
 [minikube]
-minikube-host   ansible_host=10.0.0.248
+minikube   ansible_host=10.0.0.13
 
 [k8s_master]
-k8s-master    ansible_host=10.0.0.92
+k8s-master    ansible_host=10.0.0.209
 
 [k8s_worker]
-k8s-worker    ansible_host=10.0.0.94
+k8s-worker-1    ansible_host=10.0.0.253
+k8s-worker-2    ansible_host=10.0.0.208
 
-[ansible-host]
-ansible-host	ansible_host=10.0.0.86
-[ansible-agent]
-ansible-agent   ansible_host=10.0.0.87
+

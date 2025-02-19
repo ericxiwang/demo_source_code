@@ -9,9 +9,7 @@
 - name: Set minikube driver to docker
   shell: |
     minikube config set driver docker
-- name: Start minikube
-  shell: |
-    minikube start
+
 
 - name: download kubectl
   shell: |
@@ -20,3 +18,10 @@
 - name: install kubectl
   shell: |
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    
+
+- name: Start minikube
+  become: false
+
+  shell: |
+    minikube start
