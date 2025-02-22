@@ -25,4 +25,8 @@ ___
 ![top](readme.png)
 ___
 
+### Workflow of application/autotest deployment(CI/CD) with k8s cluster
+___
+![top](k8s-demo-deployment.png)
+___
 
