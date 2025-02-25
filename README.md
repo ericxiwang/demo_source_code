@@ -19,7 +19,7 @@ Folders Documents(Jenkins,AWX,ArgoCD etc)
 #### [ArgoCD invoke K8S helm](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/ArgoCD/README.md)
 #### [AWX invoke ansible playbooks](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/awx/README.md)
 #### [Jenkins setup autotest pipline](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/jenkins/README.md)
-#### [Postman API test config&scripts](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/jenkins/README.md)
+#### [Postman API test config&scripts](https://github.com/ericxiwang/demo_source_code/tree/main/documents/images/postman/README.md)
 
 ___
 ![top](readme.png)
