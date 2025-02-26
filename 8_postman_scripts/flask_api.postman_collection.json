@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "2de2ac76-9027-4cdb-ab1c-ffc2c2b4f195",
+		"_postman_id": "27ba95d3-ff83-4d6b-a13c-11c09c32b9d1",
 		"name": "flask_api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2850764"
+		"_exporter_id": "2850764",
+		"_collection_link": "https://qa-api-group.postman.co/workspace/flask_api_test~1b4ffd43-35e1-4c9b-ac2c-c0e5cbccdbae/collection/2850764-27ba95d3-ff83-4d6b-a13c-11c09c32b9d1?action=share&source=collection_link&creator=2850764"
 	},
 	"item": [
 		{
@@ -13,6 +14,10 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"pm.collectionVariables.set(\"user_list\", \"[100,300,500,700,900,1000,3000,5000,7000,9000]\");\r",
+							"pm.collectionVariables.set(\"sort_list\", \"[999,777,888,555,666,333,111,222]\");\r",
+							"\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript",
@@ -23,22 +28,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body matches string\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"result\");\r",
-							"});\r",
-							"\r",
-							"var get_Body = pm.response.json();\r",
-							"reversed_list = get_Body.result;\r",
-							"\r",
-							"\r",
-							"console.log(reversed_list);\r",
-							"\r",
-							"pm.test(\"check list has been reversed\", function () {\r",
-							"    pm.expect(reversed_list).to.eql([9000, 7000, 5000, 3000, 1000, 900, 700, 500, 300, 100]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -50,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [100,300,500,700,900,1000,3000,5000,7000,9000]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{user_list}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \r\n    \"user_limit\": 10\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_limit\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,7 +100,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_limit\": 9\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_limit\": 9\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,7 +157,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [999,777,888,555,666,333,111,222]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -224,7 +214,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [999,777,888,555,666,333,111,222]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -281,7 +271,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [999,777,888,555,666,333,111,222]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -311,7 +301,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [9,7,5,3,1,8,7,4,2]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -341,7 +331,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [9,7,5,3,1,8,7,4,2]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -371,7 +361,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"admin\",\r\n    \"user_password\": \"1234\",\r\n    \"user_list\": [9,7,5,3,1,8,7,4,2]\r\n}",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -404,7 +394,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -438,7 +428,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -468,6 +458,14 @@
 			"key": "flask-server-port",
 			"value": "",
 			"type": "default"
+		},
+		{
+			"key": "user_list",
+			"value": ""
+		},
+		{
+			"key": "sort_list",
+			"value": ""
 		}
 	]
 }
