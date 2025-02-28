@@ -14,3 +14,8 @@ WORKDIR /opt/rt-test
 RUN apt-get -y update && apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN yes | pip3 install -r requirements.txt --break-system-packages
+
+RUN apt install -y npm
+RUN npm install -g newman
+RUN npm install -g newman-reporter-htmlextra
+
