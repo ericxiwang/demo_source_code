@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    stages{
+        stage('test start here'){
+            steps{
+                echo 'postman api test start'
+            }
+        }
+
+        stage('Get code from Github') {
+            steps{
+            checkout(
+                    [$class: 'GitSCM', branches: [[name: '*/main']],
+                     doGenerateSubmoduleConfigurations: false,
+                     extensions: [],
+                     submoduleCfg: [],
+                     userRemoteConfigs: [[url: 'https://github.com/ericxiwang/demo_source_code.git']]]
+            )
+            sh 'exit 0'
+            }
+        }
+        stage('execute postman api test'){
+            steps{
+
+                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                 {
+                    sh 'newman run ./8_postman_scripts/flask_api.postman_collection.json  -e ./8_postman_scripts/user_data.postman_environment.json -r cli,htmlextra'
+                 }
+
+            }
+        }
+
+
+    }
+      post {
+        always {
+
+            archiveArtifacts artifacts: 'newman/*.html', fingerprint: true
+
+        } }
+
+
+}
