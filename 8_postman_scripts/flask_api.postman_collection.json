@@ -8,6 +8,54 @@
 	},
 	"item": [
 		{
+			"name": "flask-server:/api/v1/auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var get_Body = pm.response.json();\r",
+							"pm.collectionVariables.set(\"access_token\", get_Body.access_token);\r",
+							"//access_token = get_Body.access_token;\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"{{flask-server-ip}}"
+					],
+					"port": "{{flask-server-port}}",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "flask-server:/api/v1/list_reverse",
 			"event": [
 				{
@@ -37,7 +85,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{user_list}}\r\n}",
@@ -66,8 +120,24 @@
 		{
 			"name": "flask-server:/api/v1/list_comprehension",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MDgxMjA2NCwianRpIjoiMTJlYjI3NjctNGEyMy00YzJjLThhYTAtYmMxZjRkZjliNGJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFkbWluIiwibmJmIjoxNzQwODEyMDY0LCJjc3JmIjoiNmQ1YjA1NTMtNmJhZS00MmU4LTkxYTEtZmJkOTZiYTlkMzQxIiwiZXhwIjoxNzQwODEyOTY0fQ.xpFx_QPUTMY6g1Cs1cuVEA_ml-jXEVCtzpHlDoz46wI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_limit\": 10\r\n}",
@@ -97,7 +167,13 @@
 			"name": "flask-server:/api/v1/fib",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_limit\": 9\r\n}",
@@ -154,7 +230,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
@@ -211,7 +293,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
@@ -268,7 +356,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
@@ -295,70 +389,16 @@
 			"response": []
 		},
 		{
-			"name": "flask-server:/api/v1/auth",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/quick_sort",
-					"protocol": "http",
-					"host": [
-						"{{flask-server-ip}}"
-					],
-					"port": "{{flask-server-port}}",
-					"path": [
-						"api",
-						"v1",
-						"quick_sort"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "flask-server:/api/v1/unauth",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/unauth",
-					"protocol": "http",
-					"host": [
-						"{{flask-server-ip}}"
-					],
-					"port": "{{flask-server-port}}",
-					"path": [
-						"api",
-						"v1",
-						"unauth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "flask-server:/api/v1/user_profile",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
@@ -391,7 +431,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
@@ -425,7 +471,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\"\r\n}",
@@ -465,6 +517,10 @@
 		},
 		{
 			"key": "sort_list",
+			"value": ""
+		},
+		{
+			"key": "access_token",
 			"value": ""
 		}
 	]

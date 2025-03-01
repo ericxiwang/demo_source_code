@@ -1,15 +1,16 @@
 import os,json,uuid
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session,jsonify
 from flask import flash
 from werkzeug.utils import secure_filename
 from model.models import *
 from api.algorithms import *
 from api import flask_api
 #from kafka import KafkaConsumer
-
+from flask_jwt_extended import JWTManager
 
 from flask_login import LoginManager, login_user,login_required, logout_user
 app = Flask(__name__)
+
 app.register_blueprint(flask_api.flask_api)
 
 
@@ -37,11 +38,18 @@ else:
     print("need get app mode config, dev or prod")
 
 
-#db_uri = 'mysql://root:qa12345@10.0.0.89/demo'
+#app.config['JWT_SECRET_KEY'] = 'my_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.config['API_KEY'] = current_config['api_key']
 db.init_app(app)
+jwt = JWTManager(app)
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header,jwt_data):
+    return jsonify({"message": "Token has expired", "error": "toke_expired"})
+
+
+
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 def allowed_file(filename):
     return '.' in filename and \
