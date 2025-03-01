@@ -121,14 +121,7 @@
 			"name": "flask-server:/api/v1/list_comprehension",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MDgxMjA2NCwianRpIjoiMTJlYjI3NjctNGEyMy00YzJjLThhYTAtYmMxZjRkZjliNGJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFkbWluIiwibmJmIjoxNzQwODEyMDY0LCJjc3JmIjoiNmQ1YjA1NTMtNmJhZS00MmU4LTkxYTEtZmJkOTZiYTlkMzQxIiwiZXhwIjoxNzQwODEyOTY0fQ.xpFx_QPUTMY6g1Cs1cuVEA_ml-jXEVCtzpHlDoz46wI",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [
