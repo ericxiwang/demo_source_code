@@ -12,11 +12,11 @@ pipeline {
             steps{
                 script{
                     if (params.DOCKER_IMAGE_SELECT == 'flask-demo'){
-                        dockerfile_src = 'python_flask'
+                        dockerfile_src = '0_Python_Flask'
                         image_name = ("${params.DOCKER_ACCOUNT}"+"/"+"flask")
                     }
                     else if(params.DOCKER_IMAGE_SELECT == 'jenkins-server'){
-                        dockerfile_src = 'python_robot_framework'
+                        dockerfile_src = '4_Image_build_docker'
                         image_name = ("${params.DOCKER_ACCOUNT}"+"/"+"jenkins")
                     }
                     else{
@@ -36,7 +36,7 @@ pipeline {
                          doGenerateSubmoduleConfigurations: false,
                          extensions: [],
                          submoduleCfg: [],
-                         userRemoteConfigs: [[url: 'https://github.com/ericxiwang/DevOps.git']]]
+                         userRemoteConfigs: [[url: 'https://github.com/ericxiwang/demo_source_code.git']]]
                 )
             }
         }
