@@ -1,4 +1,8 @@
 {
+  "/api/v1/auth": {
+    "user_name": "admin@admin.com",
+    "user_password": "1234"
+  },
   "/api/v1/list_reverse": {
     "user_list": [100,300,500,700,900,1000,3000,5000,7000,9000]
   },

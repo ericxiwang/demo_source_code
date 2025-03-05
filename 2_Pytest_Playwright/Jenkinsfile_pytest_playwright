@@ -42,7 +42,7 @@ pipeline {
                  {
                     dir("${build_path}")
                     {
-                        sh 'python3 -m pytest -v -rA  -s pytest_api_testing.py --junitxml=api-test.xml'
+                        sh 'python3 -m pytest -v -rA  -s pytest_api_testing.py --base_url=http://flask-example:8080 --junitxml=api-test.xml'
                     }
                  }
             }
