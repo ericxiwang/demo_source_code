@@ -20,11 +20,17 @@ ${PATH}         ${CURDIR}
 Open browser with URL
     [Arguments]    ${FLASK_CLOUD_URL}
     Open Browser    ${FLASK_CLOUD_URL}     ${browser}     remote_url=${selenium_grid_url}
+
 API_auth
-    ${data}=    Create dictionary   user_name=${user_name}  user_password=${user_password}
-    ${response}=    POST  ${FLASK_CLOUD_URL}/api/v1/auth      json=${data}
-    #${access_token}=    Get Value From Json    ${response.json()}
+    ${data}=            Create dictionary   user_name=${user_name}  user_password=${user_password}
+
+
+    ${response}=        POST  ${FLASK_CLOUD_URL}/api/v1/auth      json=${data}
+    ${access_token}=    Set Variable    ${response.json()}[access_token]
+    ${api_token}=       Catenate        Bearer      ${access_token}
+    ${api_header}=      Create Dictionary       Authorization=${api_token}  Content-Type="application/json"
     Set Global Variable    ${FLASK_CLOUD_URL}
+    Set Global Variable    ${api_header}
 
 
 
