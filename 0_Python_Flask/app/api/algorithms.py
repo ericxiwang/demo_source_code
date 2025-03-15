@@ -22,21 +22,34 @@ def list_reverse(input_list):
     return input_list
 
 
-def fib(n):
+def fib_loop(n):
     if n <= 1:
-        return 1
+        return n
     a, b = 1, 1
 
     for i in range(2, n + 1):
         a, b = b, a + b
 
+
     return b
 
-def fib1(n):
+def fib_recursion_1(prev1, prev2, count):
+    for each_count in range(0,count):
+        newFibo = prev1 + prev2
+        prev2 = prev1
+        prev1 = newFibo
+        count += 1
+        fib_recursion_1(prev1, prev2, count)
+        return newFibo
+    else:
+        return
+
+def fib_recursion_2(n):
     if n == 0 or n == 1:
         return 1
     else:
-        return fib1(n-1) + fib1(n-2)
+        each_item = fib_recursion_2(n-1) + fib_recursion_2(n-2)
+        return each_item
 
 
 def build_in_sort(input_list):
@@ -50,6 +63,17 @@ def bubble_sort(input_list):
         for j in range(0, loop_len-i-1):
             if input_list[j] > input_list[j+1]:
                 input_list[j], input_list[j+1] = input_list[j+1], input_list[j]
+    return input_list
+
+def selection_sort(input_list):
+    n = len(input_list)
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            if input_list[j] < input_list[min_index]:
+                min_index = j
+
+        input_list[i], input_list[min_index] = input_list[min_index], input_list[i]
     return input_list
 
 
@@ -98,6 +122,4 @@ def lyric_counter():
 
 
 if __name__ == '__main__':
-    input_list = [1,3,5,9,8,7,6,5]
-    a = generate_sample_list(10)
-    print(a)
+    print(selection_sort([9,8,7,6,5,4,3,2,1]))
