@@ -3,14 +3,25 @@
     "user_name": "admin@admin.com",
     "user_password": "1234"
   },
-  "/api/v1/list_reverse": {
+  "/api/v1/list_reverse_slice": {
     "user_list": [100,300,500,700,900,1000,3000,5000,7000,9000]
   },
+
+  "/api/v1/list_reverse_loop": {
+    "user_list": [100,300,500,700,900,1000,3000,5000,7000,9000]
+  },
+
   "/api/v1/list_comprehension": {
     "user_limit": 10
   },
-  "/api/v1/fib": {
-    "user_limit": 9
+  "/api/v1/fib_loop": {
+    "user_limit": 10
+  },
+  "/api/v1/fib_recursion_2": {
+    "user_limit": 10
+  },
+  "/api/v1/selection_sort": {
+    "user_list": [999,777,888,555,666,333,111,222]
   },
   "/api/v1/bubble_sort": {
     "user_list": [999,777,888,555,666,333,111,222]

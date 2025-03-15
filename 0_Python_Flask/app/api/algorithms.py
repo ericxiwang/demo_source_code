@@ -10,17 +10,18 @@ def list_comprehension(limit):
     new_list = [i ** 2 for i in range(1, limit) if i * (i - 2) % 3 == 0]
     return new_list
 
-def list_reverse(input_list):
+def list_reverse_slice(input_list):
     input_list = list(input_list)
     input_list = input_list[::-1]
-   # loop_len = int(len(input_list)/2)
-   # list_len = len(input_list) -1
-   # for i in range(loop_len):
-   #     input_list[i],input_list[list_len] = input_list[list_len],input_list[i]
-   #     list_len = list_len -1
-   # input_list= "".join(input_list)
     return input_list
+def list_reverse_loop(input_list):
+    loop_len = int(len(input_list)/2)
+    list_len = len(input_list) - 1
+    for i in range(loop_len):
+        input_list[i],input_list[list_len] = input_list[list_len],input_list[i]
+        list_len = list_len -1
 
+    return input_list
 
 def fib_loop(n):
     if n <= 1:
@@ -122,4 +123,4 @@ def lyric_counter():
 
 
 if __name__ == '__main__':
-    print(selection_sort([9,8,7,6,5,4,3,2,1]))
+    print(list_reverse_loop([9,8,7,6,5,4,3,2,1]))

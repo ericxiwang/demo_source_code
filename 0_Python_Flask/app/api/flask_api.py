@@ -25,13 +25,13 @@ def api_auth():
         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
         return json.dumps(help_info)
 
-@flask_api.route('/list_reverse', methods=['POST','GET'])
+@flask_api.route('/list_reverse_slice', methods=['POST','GET'])
 @jwt_required()
-def list_reverse_api():
+def list_reverse_slice_api():
     try:
         data = json.loads(request.data)
         user_list = list(data['user_list'])
-        new_list = list_reverse(user_list)
+        new_list = list_reverse_slice(user_list)
         result = {'result':new_list}
         return json.dumps(result)
 
@@ -40,6 +40,21 @@ def list_reverse_api():
         help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
         return json.dumps(help_info)
 
+
+@flask_api.route('/list_reverse_loop', methods=['POST','GET'])
+@jwt_required()
+def list_reverse_loop_api():
+    try:
+        data = json.loads(request.data)
+        user_list = list(data['user_list'])
+        new_list = list_reverse_loop(user_list)
+        result = {'result':new_list}
+        return json.dumps(result)
+
+    except:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
+        return json.dumps(help_info)
 
 @flask_api.route('/list_comprehension', methods=['POST'])
 @jwt_required()
@@ -55,15 +70,15 @@ def list_comprehension_api():
 
         help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
         return json.dumps(help_info)
-@flask_api.route('/fib', methods=['POST'])
+@flask_api.route('/fib_loop', methods=['POST'])
 @jwt_required()
-def fib_api():
+def fib_loop_api():
 
     try:
         data = json.loads(request.data)
         user_limit = data['user_limit']
         print(user_limit)
-        new_list = fib1(user_limit)
+        new_list = fib_loop(user_limit)
         result = {'result': new_list}
         return json.dumps(result)
     except:
@@ -71,6 +86,38 @@ def fib_api():
         help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
         return json.dumps(help_info)
 
+
+@flask_api.route('/fib_recursion_1', methods=['POST'])
+@jwt_required()
+def fib_recursion_1_api():
+
+    try:
+        data = json.loads(request.data)
+        user_limit = data['user_limit']
+        print(user_limit)
+        new_list = fib_loop(user_limit)
+        result = {'result': new_list}
+        return json.dumps(result)
+    except:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
+        return json.dumps(help_info)
+
+@flask_api.route('/fib_recursion_2', methods=['POST'])
+@jwt_required()
+def fib_recursion_2_api():
+
+    try:
+        data = json.loads(request.data)
+        user_limit = data['user_limit']
+        print(user_limit)
+        new_list = fib_recursion_2(user_limit)
+        result = {'result': new_list}
+        return json.dumps(result)
+    except:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
+        return json.dumps(help_info)
 @flask_api.route('/build_in_sort', methods=['POST'])
 @jwt_required()
 def build_in_sort_api():
@@ -80,6 +127,22 @@ def build_in_sort_api():
          input_list = data['user_list']
          print(input_list)
          new_list = build_in_sort(input_list)
+         result = {'result': new_list}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+@flask_api.route('/selection_sort', methods=['POST'])
+@jwt_required()
+def selection_sort_api():
+
+     try:
+         data = json.loads(request.data)
+         input_list = data['user_list']
+         print(input_list)
+         new_list = selection_sort(input_list)
          result = {'result': new_list}
          return json.dumps(result)
      except:

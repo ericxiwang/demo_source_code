@@ -56,7 +56,7 @@
 			"response": []
 		},
 		{
-			"name": "flask-server:/api/v1/list_reverse",
+			"name": "flask-server:/api/v1/list_reverse_slice",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -102,7 +102,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/list_reverse",
+					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/list_reverse_slice",
 					"protocol": "http",
 					"host": [
 						"{{flask-server-ip}}"
@@ -111,7 +111,69 @@
 					"path": [
 						"api",
 						"v1",
-						"list_reverse"
+						"list_reverse_slice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "flask-server:/api/v1/list_reverse_loop",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"user_list\", \"[100,300,500,700,900,1000,3000,5000,7000,9000]\");\r",
+							"pm.collectionVariables.set(\"sort_list\", \"[999,777,888,555,666,333,111,222]\");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{user_list}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/list_reverse_loop",
+					"protocol": "http",
+					"host": [
+						"{{flask-server-ip}}"
+					],
+					"port": "{{flask-server-port}}",
+					"path": [
+						"api",
+						"v1",
+						"list_reverse_loop"
 					]
 				}
 			},
@@ -157,7 +219,7 @@
 			"response": []
 		},
 		{
-			"name": "flask-server:/api/v1/fib",
+			"name": "flask-server:/api/v1/fib_loop",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -187,6 +249,105 @@
 						"api",
 						"v1",
 						"fib"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "flask-server:/api/v1/fib_recursion_2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_limit\": 9\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/fib_recursion_2",
+					"protocol": "http",
+					"host": [
+						"{{flask-server-ip}}"
+					],
+					"port": "{{flask-server-port}}",
+					"path": [
+						"api",
+						"v1",
+						"fib_recursion_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "flask-server:/api/v1/selection_sort",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"result\");\r",
+							"});\r",
+							"\r",
+							"var get_Body = pm.response.json();\r",
+							"reversed_list = get_Body.result;\r",
+							"\r",
+							"\r",
+							"console.log(reversed_list);\r",
+							"\r",
+							"pm.test(\"check buble sort result\", function () {\r",
+							"    pm.expect(reversed_list).to.eql([111, 222, 333, 555, 666, 777, 888, 999]);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"{{user_name}}\",\r\n    \"user_password\": \"{{user_password}}\",\r\n    \"user_list\": {{sort_list}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{flask-server-ip}}:{{flask-server-port}}/api/v1/bubble_sort",
+					"protocol": "http",
+					"host": [
+						"{{flask-server-ip}}"
+					],
+					"port": "{{flask-server-port}}",
+					"path": [
+						"api",
+						"v1",
+						"bubble_sort"
 					]
 				}
 			},

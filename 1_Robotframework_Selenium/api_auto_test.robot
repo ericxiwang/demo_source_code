@@ -10,13 +10,24 @@ API_SESSION_INIT
     Log    ${PATH}
 
 
-/api/v1/list_reverse
+/api/v1/list_reverse_slice
     [Tags]     sanity
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
    # ${body}=    Update Value To Json        ${body}      $.user_list     [9,8,7,6,5,4,3,2,1]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   data=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
+
+
+/api/v1/list_reverse_loop
+    [Tags]     sanity
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+   # ${body}=    Update Value To Json        ${body}      $.user_list     [9,8,7,6,5,4,3,2,1]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   data=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+
 
 /api/v1/list_comprehension
     [Tags]      cloud
@@ -25,7 +36,21 @@ API_SESSION_INIT
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
-/api/v1/fib
+/api/v1/fib_loop
+    [Tags]     cloud
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+/api/v1/fib_recursion_2
+    [Tags]     cloud
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+/api/v1/selection_sort
     [Tags]     cloud
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]

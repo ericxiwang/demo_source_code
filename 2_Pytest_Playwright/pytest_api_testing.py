@@ -8,15 +8,28 @@ print(api_json_temp)
 
 
 
-@pytest.mark.parametrize("test_case_name", ["/api/v1/list_reverse"])
-def test_api_list_reverse(test_case_name,api_authentication, base_url):
+@pytest.mark.parametrize("test_case_name", ["/api/v1/list_reverse_slice"])
+def test_api_list_reverse_slice(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
     test_list = api_json_temp[test_case_name]['user_list'][::-1]
 
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
+    response = requests.request("POST", api_url, headers=api_authentication, data=payload)
+    get_json = response.json()
+    print(get_json['result'])
+    #response = requests.get(api_url)
+
+    # Verify status code
+    assert response.status_code == 200
+    assert get_json['result'] == test_list
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/list_reverse_loop"])
+def test_api_list_reverse_loop(test_case_name,api_authentication, base_url):
+    api_url = base_url + test_case_name
+    test_list = api_json_temp[test_case_name]['user_list'][::-1]
+
+    payload = json.dumps(api_json_temp[test_case_name])
 
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
@@ -33,9 +46,7 @@ def test_api_list_comprehension(test_case_name,api_authentication, base_url):
     limit_list = 10
     api_url = base_url + test_case_name
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
 
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
@@ -48,8 +59,7 @@ def test_api_list_comprehension(test_case_name,api_authentication, base_url):
 
     assert get_json['result'] == list_verify(limit_list)
 
-@pytest.mark.parametrize("test_case_name, user_name, user_group", [("/api/v1/list_reverse","admin_test@test.com", "admin")])
-
+@pytest.mark.parametrize("test_case_name, user_name, user_group", [("/api/v1/user_profile","admin_test@test.com", "admin")])
 def test_user_profile(test_case_name,user_name,user_group,api_authentication, base_url):
     api_url = base_url + "/api/v1/user_profile"
     payload = json.dumps({
@@ -57,9 +67,7 @@ def test_user_profile(test_case_name,user_name,user_group,api_authentication, ba
         "user_address": "1110-1111 eastwood street",
         "user_group": "admin"
     })
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
 
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
@@ -69,14 +77,12 @@ def test_user_profile(test_case_name,user_name,user_group,api_authentication, ba
     assert get_json['user_group'] == user_group
 
 
-@pytest.mark.parametrize("test_case_name", ["/api/v1/fib"])
-def test_api_fib(test_case_name,api_authentication, base_url):
+@pytest.mark.parametrize("test_case_name", ["/api/v1/fib_loop"])
+def test_api_fib_loop(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
 
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
@@ -84,17 +90,39 @@ def test_api_fib(test_case_name,api_authentication, base_url):
     #response = requests.get(api_url)
 
     # Verify status code
-    #assert response.status_code == 200
-    #assert get_json['result'] == [9,7,5,3,1]
+    assert response.status_code == 200
+@pytest.mark.parametrize("test_case_name", ["/api/v1/fib_recursion_2"])
+def test_api_fib_recursion_2(test_case_name,api_authentication, base_url):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+
+
+    response = requests.request("POST", api_url, headers=api_authentication, data=payload)
+    get_json = response.json()
+    print(get_json['result'])
+    #response = requests.get(api_url)
+
+    # Verify status code
+    assert response.status_code == 200
+
+@pytest.mark.parametrize("test_case_name", ["/api/v1/selection_sort"])
+def test_api_selection_sort(test_case_name,api_authentication, base_url):
+    api_url = base_url + test_case_name
+
+    payload = json.dumps(api_json_temp[test_case_name])
+
+    response = requests.request("POST", api_url, headers=api_authentication, data=payload)
+    get_json = response.json()
+
+    assert  get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
 
 @pytest.mark.parametrize("test_case_name", ["/api/v1/bubble_sort"])
 def test_api_bubble_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
 
@@ -105,9 +133,7 @@ def test_api_quick_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
     print(get_json['result'])
@@ -118,9 +144,7 @@ def test_api_build_in_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
     payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
     response = requests.request("POST", api_url, headers=api_authentication, data=payload)
     get_json = response.json()
     print(get_json['result'])
@@ -134,10 +158,7 @@ def test_api_build_in_sort(test_case_name,api_authentication, base_url):
 def test_api_build_in_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
-    #payload = json.dumps(api_json_temp[test_case_name])
-    headers = {
-        'Content-Type': 'application/json'
-    }
+
     response = requests.request("GET", api_url, headers=api_authentication)
     get_json = response.json()
     print(get_json['result'])
