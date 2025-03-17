@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters{
+        string(defaultValue: 'http://flask-example:8080',  name: 'FLASK_CLOUD_URL', trim: true)
+     }
     stages{
         stage('test start here'){
             steps{
@@ -24,7 +27,7 @@ pipeline {
                 
                  catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
                  {
-                    sh 'robot --report page_test.html ./1_Robotframework_Selenium/page_auto_test.robot'
+                    sh "robot --report page_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} ./1_Robotframework_Selenium/page_auto_test.robot"
                  }
 
             }
@@ -34,7 +37,7 @@ pipeline {
 
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
                  {
-                    sh 'robot --report api_test.html ./1_Robotframework_Selenium/api_auto_test.robot'
+                    sh "robot --report api_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} ./1_Robotframework_Selenium/api_auto_test.robot"
                  }
             }
         }
