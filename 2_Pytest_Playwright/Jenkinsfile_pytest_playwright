@@ -32,7 +32,7 @@ pipeline {
                  {
                     dir("${build_path}")
                     {
-                        sh 'python3 -m pytest -v -rA  -s playwright_pytest_demo.py --base_url=http://${params.BASE_URL}:${params.PORT} --junitxml=web-test.xml'
+                        sh "python3 -m pytest -v -rA  -s playwright_pytest_demo.py --base_url=http://${params.BASE_URL}:${params.PORT} --junitxml=web-test.xml"
                     }
 
                  }
@@ -46,7 +46,7 @@ pipeline {
                  {
                     dir("${build_path}")
                     {
-                        sh 'python3 -m pytest -v -rA  -s pytest_api_testing.py --base_url=http://${params.BASE_URL}:${params.PORT} --junitxml=api-test.xml'
+                        sh "python3 -m pytest -v -rA  -s pytest_api_testing.py --base_url=http://${params.BASE_URL}:${params.PORT} --junitxml=api-test.xml"
                     }
                  }
             }
