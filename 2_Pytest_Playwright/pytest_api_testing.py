@@ -7,7 +7,6 @@ with open('api_temp.json', 'r') as file:
 print(api_json_temp)
 
 
-
 @pytest.mark.parametrize("test_case_name", ["/api/v1/list_reverse_slice"])
 def test_api_list_reverse_slice(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
@@ -105,7 +104,7 @@ def test_api_fib_recursion_2(test_case_name,api_authentication, base_url):
 
     # Verify status code
     assert response.status_code == 200
-
+@pytest.mark.sort
 @pytest.mark.parametrize("test_case_name", ["/api/v1/selection_sort"])
 def test_api_selection_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
@@ -116,7 +115,7 @@ def test_api_selection_sort(test_case_name,api_authentication, base_url):
     get_json = response.json()
 
     assert  get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
-
+@pytest.mark.sort
 @pytest.mark.parametrize("test_case_name", ["/api/v1/bubble_sort"])
 def test_api_bubble_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
@@ -127,7 +126,7 @@ def test_api_bubble_sort(test_case_name,api_authentication, base_url):
     get_json = response.json()
 
     assert  get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
-
+@pytest.mark.sort
 @pytest.mark.parametrize("test_case_name", ["/api/v1/quick_sort"])
 def test_api_quick_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
@@ -139,6 +138,7 @@ def test_api_quick_sort(test_case_name,api_authentication, base_url):
     print(get_json['result'])
     assert get_json['result'] == sorted(api_json_temp[test_case_name]['user_list'])
 
+@pytest.mark.sort
 @pytest.mark.parametrize("test_case_name", ["/api/v1/build_in_sort"])
 def test_api_build_in_sort(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
@@ -155,7 +155,7 @@ def test_api_build_in_sort(test_case_name,api_authentication, base_url):
                                             ("/api/v1/data_grid/Israel"),
                                             ("/api/v1/data_grid/Spain"),
                                             ("/api/v1/data_grid/France"),])
-def test_api_build_in_sort(test_case_name,api_authentication, base_url):
+def test_api_data_grid(test_case_name,api_authentication, base_url):
     api_url = base_url + test_case_name
 
 
