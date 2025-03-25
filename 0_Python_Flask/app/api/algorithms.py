@@ -317,4 +317,4 @@ def search_insert(nums, target):
 
 if __name__ == '__main__':
 
-    print(search_insert([100,300,500,700,900,1000,3000,3000,5000,7000,9000],900))
+    print(search_insert([1,3,5,7],9))

@@ -8,12 +8,20 @@
   },
 
   "/api/v1/list_reverse_loop": {
-    "user_list": [100,300,500,700,900,1000,3000,5000,7000,9000]
+    "user_list": [100,300,500,700,900,1000,3000,3000,5000,7000,9000]
   },
 
   "/api/v1/list_comprehension": {
     "user_limit": 10
   },
+  "/api/v1/list_find_duplicates": {
+    "user_list": [100,300,500,700,900,1000,3000,3000,5000,7000,9000]
+  },
+  "/api/v1/list_topKFrequent": {
+    "input_words": [100,300,500,700,900,1000,3000,3000,5000,5000,5000,7000,9000],
+    "input_k": 3
+  },
+
   "/api/v1/fib_loop": {
     "user_limit": 10
   },
