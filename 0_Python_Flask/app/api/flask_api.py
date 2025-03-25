@@ -221,6 +221,163 @@ def album_table(album_name):
 
 
 
+#========================add several new demo apis
+@flask_api.route('/smallest_factor/<input_number>', methods=['GET'])
+@jwt_required()
+def smallest_factor_api(input_number):
+    try:
+
+        prime_number = smallest_factor(int(input_number))
+        result = {'smallest_factor':prime_number}
+        return json.dumps(result)
+
+    except:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
+        return json.dumps(help_info)
 
 
 
+@flask_api.route('/ip_address_generator', methods=['GET'])
+@jwt_required()
+def ip_address_generator_api():
+    try:
+
+        ipv4 = ip_address_generator()
+        result = {'ipv4':ipv4}
+        return json.dumps(result)
+
+    except:
+
+        help_info = {"user_name": "<email>", "user_password": "<psw>","user_list": "[]"}
+        return json.dumps(help_info)
+
+@flask_api.route('/list_find_duplicates', methods=['POST'])
+@jwt_required()
+def list_find_duplicates_api():
+
+     try:
+         data = json.loads(request.data)
+         input_list = data['user_list']
+         new_list = find_duplicates(input_list)
+         result = {'result': new_list}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/list_topKFrequent', methods=['POST'])
+@jwt_required()
+def list_topKFrequent_api():
+
+     try:
+         data = json.loads(request.data)
+         words = data['input_words']
+         k = data["input_k"]
+         new_list = topKFrequent(words,k)
+         result = {'result': new_list}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/validate_ipv4_general', methods=['POST'])
+@jwt_required()
+def validate_ipv4_general_api():
+
+     try:
+         data = json.loads(request.data)
+         ipv4 = data['ipv4']
+
+         result = {'result': validate_ipv4_general(ipv4)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/validate_ipv4_regex', methods=['POST'])
+@jwt_required()
+def validate_ipv4_regex_api():
+
+     try:
+         data = json.loads(request.data)
+         ipv4 = data['ipv4']
+
+         result = {'result': validate_ipv4_regex(ipv4)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/validate_email_regex', methods=['POST'])
+@jwt_required()
+def validate_email_regex_api():
+
+     try:
+         data = json.loads(request.data)
+         email = data['email']
+
+         result = {'result': validate_email_regex(email)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/valid_parentheses_nostack', methods=['POST'])
+@jwt_required()
+def valid_parentheses_nostack_api():
+
+     try:
+         data = json.loads(request.data)
+         parentheses_string = data['parentheses_string']
+
+         result = {'result': valid_parentheses_nostack(parentheses_string)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/valid_parentheses_stack', methods=['POST'])
+@jwt_required()
+def valid_parentheses_stack_api():
+
+     try:
+         data = json.loads(request.data)
+         parentheses_string = data['parentheses_string']
+
+         result = {'result': valid_parentheses_stack(parentheses_string)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/search_insert', methods=['POST'])
+@jwt_required()
+#Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+def search_insert_api():
+
+     try:
+         data = json.loads(request.data)
+         nums = data['nums']
+         target = data['target']
+
+         result = {'result': search_insert(nums, int(target))}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
