@@ -14,12 +14,40 @@
   "/api/v1/list_comprehension": {
     "user_limit": 10
   },
+  "/api/v1/list_find_duplicates": {
+    "user_list": [100,300,500,700,900,1000,3000,3000,5000,7000,9000]
+  },
+  "/api/v1/list_topKFrequent": {
+    "input_words": [100,300,500,700,900,1000,3000,3000,5000,5000,5000,7000,9000],
+    "input_k": 3
+  },
   "/api/v1/fib_loop": {
     "user_limit": 10
   },
   "/api/v1/fib_recursion_2": {
     "user_limit": 10
   },
+
+  "/api/v1/validate_ipv4_general": {
+    "ipv4": "192.168.110.110"
+  },
+  "/api/v1/validate_ipv4_regex": {
+    "ipv4": "8.8.8.8"
+  },
+  "/api/v1/validate_email_regex": {
+    "email": "user_name@e-mail.com"
+  },
+  "/api/v1/valid_parentheses_nostack": {
+    "parentheses_string": "{{[[()]]}}{}[]()({)}"
+  },
+  "/api/v1/valid_parentheses_stack": {
+    "parentheses_string": "{{[[()]]}}{}[]()({)}"
+  },
+  "/api/v1/search_insert": {
+    "nums": [100,300,500,700,900,1000,3000,3000,5000,7000,9000],
+    "target": 9999
+  },
+
   "/api/v1/selection_sort": {
     "user_list": [999,777,888,555,666,333,111,222]
   },
@@ -36,5 +64,8 @@
      "user_name": "admin_test@test.com",
      "user_address": "1110-1111 eastwood street",
      "user_group": "admin"
+  },
+  "/api/v1/smallest_factor": {
+    "input_numbers": [1,3,5,7,11,999]
   }
 }

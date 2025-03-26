@@ -11,7 +11,7 @@ API_SESSION_INIT
 
 
 /api/v1/list_reverse_slice
-    [Tags]     sanity
+    [Tags]     list_operation
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
    # ${body}=    Update Value To Json        ${body}      $.user_list     [9,8,7,6,5,4,3,2,1]
@@ -20,7 +20,7 @@ API_SESSION_INIT
 
 
 /api/v1/list_reverse_loop
-    [Tags]     sanity
+    [Tags]     list_operation
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
    # ${body}=    Update Value To Json        ${body}      $.user_list     [9,8,7,6,5,4,3,2,1]
@@ -30,25 +30,86 @@ API_SESSION_INIT
 
 
 /api/v1/list_comprehension
-    [Tags]      cloud
+    [Tags]      list_operation
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
+/api/v1/list_find_duplicates
+    [Tags]      list_operation
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+/api/v1/list_topKFrequent
+    [Tags]      list_operation
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+
 /api/v1/fib_loop
-    [Tags]     cloud
+    [Tags]     list_operation
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
 /api/v1/fib_recursion_2
-    [Tags]     cloud
+    [Tags]     list_operation
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
+
+/api/v1/validate_ipv4_general
+    [Tags]     data_validator
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+    Should Be True    ${response.json()}[result]
+
+/api/v1/validate_ipv4_regex
+    [Tags]     data_validator
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+    Should Be True    ${response.json()}[result]
+
+/api/v1/validate_email_regex
+    [Tags]     data_validator
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+    Should Be True    ${response.json()}[result]
+
+/api/v1/valid_parentheses_nostack
+    [Tags]     data_validator
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+/api/v1/valid_parentheses_stack
+    [Tags]     data_validator
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+
+/api/v1/search_insert
+    [Tags]     list_operation
+    ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    ${body}     Set Variable    ${body}[0]
+    ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
+    Log     ${response.json()}
+    Should Be Equal As Numbers  ${response.json()}[result]   11
 
 /api/v1/selection_sort
     [Tags]     cloud
@@ -147,3 +208,30 @@ API_SESSION_INIT
     ${real_data}    Set Variable     ${response.json()}[user_group]
     Log    ${real_data}
     Should not Be Equal As Strings    ${test_data}      ${real_data}
+
+/api/v1/smallest_factor
+    [Tags]     cloud
+    ${prime_numbers}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
+    @{prime_numbers}     Set Variable    ${prime_numbers}[0][input_numbers]
+
+    FOR    ${each_number}       IN      @{prime_numbers}
+        Log    ${each_number}
+        ${response}=    GET    ${FLASK_CLOUD_URL}/${TEST NAME}/${each_number}       verify=${False}  headers=${api_header}
+        Log     ${response.json()}[smallest_factor]
+    END
+
+/api/v1/ip_address_generator
+    [Tags]     cloud
+
+    FOR    ${each_number}   IN RANGE      1           10
+        Log    ${each_number}
+        ${response}=    GET    ${FLASK_CLOUD_URL}/${TEST NAME}     verify=${False}  headers=${api_header}
+        ${input_ip_valid}   Set Variable    ${response.json()}[ipv4]
+        ${body}      Create dictionary   ipv4=${input_ip_valid}
+        ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/validate_ipv4_regex   json=${body}     verify=${False}  headers=${api_header}
+        Log    ${response.json()}[result]
+        Should Be True    ${response.json()}[result]
+
+
+
+    END
