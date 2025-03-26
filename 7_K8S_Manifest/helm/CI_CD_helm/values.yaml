@@ -9,7 +9,7 @@ flask-example:
   image:
     repository: ericxiwang/flask
     pullPolicy: IfNotPresent
-    tag: "031725"
+    tag: "032525"
   service:
     type: ClusterIP
     port: 8080
