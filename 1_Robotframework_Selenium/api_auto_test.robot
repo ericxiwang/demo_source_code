@@ -112,34 +112,34 @@ API_SESSION_INIT
     Should Be Equal As Numbers  ${response.json()}[result]   11
 
 /api/v1/selection_sort
-    [Tags]     cloud
+    [Tags]     sort
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
 /api/v1/bubble_sort
-    [Tags]     cloud
+    [Tags]     sort
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 /api/v1/quick_sort
-    [Tags]     cloud
+    [Tags]     sort
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
 /api/v1/build_in_sort
-    [Tags]     cloud
+    [Tags]     sort
     ${body}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     ${body}     Set Variable    ${body}[0]
     ${response}=    POST    ${FLASK_CLOUD_URL}/${TEST NAME}   json=${body}     verify=${False}  headers=${api_header}
     Log     ${response.json()}
 
 /api/v1/user_profile(check_username)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_name]
     ${test_data}    Set Variable    ${body}[0][user_name]
@@ -151,7 +151,7 @@ API_SESSION_INIT
     Should Be Equal As Strings    ${test_data}      ${real_data}
 
 /api/v1/user_profile(check_username_failed_demo)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_name]
     ${test_data}    Set Variable    ${body}[0][user_name]
@@ -163,7 +163,7 @@ API_SESSION_INIT
     Should Not Be Equal As Strings    ${test_data}      ${real_data}
 
 /api/v1/user_address(check_address)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_address]
     ${test_data}    Set Variable    ${body}[0][user_address]
@@ -174,7 +174,7 @@ API_SESSION_INIT
     Log    ${real_data}
     Should Be Equal As Strings    ${test_data}      ${real_data}
 /api/v1/user_address(check_address_failed_demo)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_address]
     ${test_data}    Set Variable    ${body}[0][user_address]
@@ -186,7 +186,7 @@ API_SESSION_INIT
     Should not Be Equal As Strings    ${test_data}      ${real_data}
 
 /api/v1/user_group(check_group)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_group]
     ${test_data}    Set Variable    ${body}[0][user_group]
@@ -198,7 +198,7 @@ API_SESSION_INIT
     Should Be Equal As Strings    ${test_data}      ${real_data}
 
 /api/v1/user_group(check_group_failed_demo)
-    [Tags]     cloud
+    [Tags]     data_query
     ${body}=     Get Value From Json    ${flask_api_temp}     '/api/v1/user_profile'
     Log     ${body}[0][user_group]
     ${test_data}    Set Variable    ${body}[0][user_group]
@@ -210,7 +210,7 @@ API_SESSION_INIT
     Should not Be Equal As Strings    ${test_data}      ${real_data}
 
 /api/v1/smallest_factor
-    [Tags]     cloud
+    [Tags]     data_validator
     ${prime_numbers}=     Get Value From Json    ${flask_api_temp}     $.'${TEST NAME}'
     @{prime_numbers}     Set Variable    ${prime_numbers}[0][input_numbers]
 
@@ -221,7 +221,7 @@ API_SESSION_INIT
     END
 
 /api/v1/ip_address_generator
-    [Tags]     cloud
+    [Tags]     data_validator
 
     FOR    ${each_number}   IN RANGE      1           10
         Log    ${each_number}
@@ -231,7 +231,5 @@ API_SESSION_INIT
         ${response}=    POST    ${FLASK_CLOUD_URL}/api/v1/validate_ipv4_regex   json=${body}     verify=${False}  headers=${api_header}
         Log    ${response.json()}[result]
         Should Be True    ${response.json()}[result]
-
-
 
     END
