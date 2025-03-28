@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters{
         string(defaultValue: 'http://flask-example:8080',  name: 'FLASK_CLOUD_URL', trim: true)
-        choice(name: 'TAG', choices: ['all', 'sort', 'list_operation', 'data_validator','data_query], description: 'Choose an API test tag')
+        choice(name: 'TAG', choices: ['all', 'sort', 'list_operation', 'data_validator','data_query'], description: 'Choose an API test tag')
      }
     stages{
         stage('test start here'){
