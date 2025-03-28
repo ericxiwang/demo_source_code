@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters{
         string(defaultValue: 'http://flask-example:8080',  name: 'FLASK_CLOUD_URL', trim: true)
+        choice(name: 'TAG', choices: ['all', 'sort', 'list_operation', 'data_validator','data_query], description: 'Choose an API test tag')
      }
     stages{
         stage('test start here'){
@@ -24,8 +25,8 @@ pipeline {
         }
         stage('execute web page auto test'){
             steps{
-                
-                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
+
+                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
                  {
                     sh "robot --report page_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} ./1_Robotframework_Selenium/page_auto_test.robot"
                  }
@@ -35,10 +36,23 @@ pipeline {
         stage('execute api auto test'){
             steps{
 
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') 
-                 {
-                    sh "robot --report api_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} ./1_Robotframework_Selenium/api_auto_test.robot"
-                 }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                {
+                    dir("${WORKSPACE}"+"/"+"1_Robotframework_Selenium")
+                    {
+                        script
+                            {
+                                if (params.TAG == 'all')
+                                {
+                                    sh "robot --report api_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} api_auto_test.robot"
+                                }
+                                else
+                                {
+                                    sh "robot --report api_test.html -v FLASK_CLOUD_URL:${params.FLASK_CLOUD_URL} -i ${params.TAG} -i init api_auto_test.robot"
+                                }
+                            }
+                    }
+                }
             }
         }
 

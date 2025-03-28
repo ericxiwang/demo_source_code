@@ -3,7 +3,7 @@ Resource    resources.robot
 
 *** Test Cases ***
 API_SESSION_INIT
-    [Tags]      sanity
+    [Tags]      init
     API_auth
     ${flask_api_temp}=    Load Json From File        ${PATH}/api_temp.json
     Set Global Variable     ${flask_api_temp}
