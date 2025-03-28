@@ -61,6 +61,7 @@ pipeline {
         always {
             robot outputPath: '.', passThreshold: 80.0, unstableThreshold: 70.0
             archiveArtifacts artifacts: '*.html', fingerprint: true
+            archiveArtifacts artifacts: '1_Robotframework_Selenium/*.html', fingerprint: true
 
         } }
 
