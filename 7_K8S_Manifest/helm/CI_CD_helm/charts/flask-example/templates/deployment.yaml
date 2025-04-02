@@ -66,6 +66,13 @@ spec:
           volumeMounts:
             - name: project-config
               mountPath: /etc/nginx/conf.d
+          resources:
+            requests:
+              cpu: { { .Values.resources.requests.cpu } }
+              #memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: { { .Values.resources.limits.cpu } }
+              #memory: {{ .Values.resources.limits.memory }}
         {{- end }}
       volumes:
         - name: project-config
