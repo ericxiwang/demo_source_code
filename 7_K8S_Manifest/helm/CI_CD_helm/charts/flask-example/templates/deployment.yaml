@@ -43,7 +43,14 @@ spec:
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              #memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              #memory: {{ .Values.resources.limits.memory }}
+
+            #{{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: project-config
               mountPath: /opt/app/config.json

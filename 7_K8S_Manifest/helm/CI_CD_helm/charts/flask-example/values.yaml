@@ -31,10 +31,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 resources:
+  requests:
+    cpu: 200m
   limits:
     cpu: 300m
-    requests:
-      cpu: 200m
+
 podAnnotations: {}
 podLabels: {}
 
