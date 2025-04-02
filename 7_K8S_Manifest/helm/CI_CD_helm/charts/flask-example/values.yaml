@@ -32,9 +32,9 @@ serviceAccount:
   name: ""
 resources:
   requests:
-    cpu: 200m
+    cpu: 50m
   limits:
-    cpu: 300m
+    cpu: 200m
 
 podAnnotations: {}
 podLabels: {}
