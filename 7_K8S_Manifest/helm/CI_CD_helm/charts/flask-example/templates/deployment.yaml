@@ -68,10 +68,10 @@ spec:
               mountPath: /etc/nginx/conf.d
           resources:
             requests:
-              cpu: { { .Values.resources.requests.cpu } }
+              cpu: {{ .Values.resources.requests.cpu }}
               #memory: {{ .Values.resources.requests.memory }}
             limits:
-              cpu: { { .Values.resources.limits.cpu } }
+              cpu: {{ .Values.resources.limits.cpu }}
               #memory: {{ .Values.resources.limits.memory }}
         {{- end }}
       volumes:
