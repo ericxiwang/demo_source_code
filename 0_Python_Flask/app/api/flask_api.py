@@ -1,5 +1,4 @@
 from flask import Blueprint,request,redirect, url_for, current_app, session, jsonify
-
 import os,json,uuid
 from api.algorithms import *
 from model.models import *
@@ -7,7 +6,6 @@ from flask_jwt_extended import create_access_token,jwt_required, get_jwt_identit
 
 
 flask_api = Blueprint('flask_api', __name__, url_prefix='/api/v1')
-
 @flask_api.route('/auth', methods=['POST'])
 def api_auth():
     data = json.loads(request.data)

@@ -7,15 +7,11 @@ from api.algorithms import *
 from api import flask_api
 #from kafka import KafkaConsumer
 from flask_jwt_extended import JWTManager
-
 from flask_login import LoginManager, login_user,login_required, logout_user
-app = Flask(__name__)
-
-app.register_blueprint(flask_api.flask_api)
-
-
+from prometheus_flask_exporter import PrometheusMetrics
 path = os.getcwd()
-
+app = Flask(__name__)
+app.register_blueprint(flask_api.flask_api)
 app.secret_key = 'my_album'
 
 
@@ -44,6 +40,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.config['API_KEY'] = current_config['api_key']
 db.init_app(app)
 jwt = JWTManager(app)
+metrics = PrometheusMetrics(app)
+by_path_counter = metrics.counter(
+    'by_path_counter', 'Request count by request paths',
+    labels={'path': lambda: request.path}
+)
+
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header,jwt_data):
     return jsonify({"message": "Token has expired", "error": "toke_expired"})
@@ -172,7 +174,7 @@ def album_show(album_name):
 
 
 @app.route('/data_grid',methods=['GET'])
-@login_required
+@by_path_counter
 def data_grid():
     new_grid_list = []
     all_albums_info = IMAGE_ALBUM.query.all()
@@ -223,4 +225,4 @@ def list_sort():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=8080)
+    app.run(host="0.0.0.0", debug=False, port=8080,threaded=True)
