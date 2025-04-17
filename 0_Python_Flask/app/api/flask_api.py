@@ -372,8 +372,58 @@ def search_insert_api():
          data = json.loads(request.data)
          nums = data['nums']
          target = data['target']
+         result = {'result': search_insert(nums, target)}
+         return json.dumps(result)
 
-         result = {'result': search_insert(nums, int(target))}
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/merge_the_tools', methods=['POST'])
+@jwt_required()
+def merge_the_tools_api():
+
+     try:
+         data = json.loads(request.data)
+         input_string = data['input_string']
+         k = data['k']
+
+         result = {'result': merge_the_tools(input_string,k)}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+@flask_api.route('/two_sum_brute_force', methods=['POST'])
+@jwt_required()
+def two_sum_brute_force_api():
+
+     try:
+         data = json.loads(request.data)
+         nums = data['nums']
+         target = data['target']
+
+         result = {'result': two_sum_brute_force(nums,target),"nums":nums,"target":target}
+         return json.dumps(result)
+     except:
+
+         help_info = {"user_name": "<email>", "user_password": "<psw>", "user_list": "[]"}
+         return json.dumps(help_info)
+
+
+@flask_api.route('/two_sum_hashmap', methods=['POST'])
+@jwt_required()
+def two_sum_hashmap_api():
+
+     try:
+         data = json.loads(request.data)
+         nums = data['nums']
+         target = data['target']
+
+         result = {'result': two_sum_hashmap(nums,target),"nums":nums,"target":target}
          return json.dumps(result)
      except:
 

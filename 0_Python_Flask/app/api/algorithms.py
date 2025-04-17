@@ -310,10 +310,61 @@ def search_insert(nums, target):
                 if x > target:
                     return (nums.index(x))
 
-
         elif len_of_number < target:
 
             return len(nums)
+
+
+################################
+#https://www.hackerrank.com/challenges/merge-the-tools/problem
+def merge_the_tools(input_string, k):
+    new_list = []
+    list_group = []
+    start_over = 0
+    return_value =[]
+    for i in list(input_string):
+
+        list_group.append(i)
+        start_over += 1
+        if start_over == k:
+            start_over = 0
+
+            new_list.append(list_group)
+            list_group = []
+    s = []
+    for j in new_list:
+        for g in j:
+            if g not in s:
+                s.append(g)
+
+        print("".join(s))
+        return_value.append("".join(s))
+
+        s = []
+    return return_value
+
+
+def two_sum_brute_force(nums,target):
+    sum_list = {}
+    return_hash = {}
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                sum_list[i] = j
+    return sum_list
+
+def two_sum_hashmap(nums,target):
+    hashmap = {}
+    return_hash = {}
+    for i in range(len(nums)):
+        assessment = target - nums[i]
+        if assessment in hashmap:
+            return_hash[hashmap[assessment]] = i
+            print([hashmap[assessment], i])
+        hashmap[nums[i]] = i
+        i += 1
+    return return_hash
+
 
 if __name__ == '__main__':
 
