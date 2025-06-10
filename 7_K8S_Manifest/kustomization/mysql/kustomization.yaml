@@ -6,7 +6,7 @@ commonLabels:
 resources:
 - mysql-config.yaml
 - mysql-pv-pvc.yaml
-- mysql-deploy.yaml
+- mysql-statefulset.yaml
 - mysql-service.yaml
 - mysql-secret.yaml
 
