@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mysql-service.fullname" . }}
+  labels:
+    {{- include "mysql-service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  serviceName: {{ include "mysql-service.fullname" . }}-headless
+  selector:
+    matchLabels:
+      {{- include "mysql-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mysql-service.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: root-password
+            ports:
+              - name: http
+                containerPort: { { .Values.ports.containerPort } }
+                protocol: TCP
+          volumeMounts:
+            - name: my-data
+              mountPath: /var/lib/mysql
+
+
+          # Add your other container configurations here, like volumes, env vars, etc.
+
+
+  volumeClaimTemplates:
+    - metadata:
+        name: my-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+       # storageClass: "your-storage-class" # Replace with your storage class
+        resources:
+          requests:
+            storage: 1Gi

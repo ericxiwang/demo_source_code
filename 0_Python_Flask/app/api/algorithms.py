@@ -368,4 +368,4 @@ def two_sum_hashmap(nums,target):
 
 if __name__ == '__main__':
 
-    print(search_insert([1,3,5,7],9))
+    print(two_sum_brute_force([1,3,5,7],8))
