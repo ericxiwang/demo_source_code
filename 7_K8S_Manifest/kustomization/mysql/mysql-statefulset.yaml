@@ -32,6 +32,8 @@ spec:
           - name: mysql-initdb
             mountPath: /etc/mysql/my.cnf
             subPath: my.cnf
+          - name: mysql-data
+            mountPath: /var/lib/mysql
       volumes:
         - name: mysql-initdb
           configMap:
@@ -41,3 +43,12 @@ spec:
                 path: initdb.sql
               - key: my.cnf
                 path: my.cnf
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes:
+          -ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
