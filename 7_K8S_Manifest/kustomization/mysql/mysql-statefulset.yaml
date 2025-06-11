@@ -44,10 +44,10 @@ spec:
               - key: my.cnf
                 path: my.cnf
   volumeClaimTemplates:
-    - metadata:
-        name: mysql-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 10Gi
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 500Mi
