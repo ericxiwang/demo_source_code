@@ -27,13 +27,26 @@ spec:
                   key: root-password
             ports:
               - name: http
-                containerPort: { { .Values.ports.containerPort } }
+                containerPort: {{ .Values.ports.containerPort }}
                 protocol: TCP
           volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+            - name: mysql-initdb
+              mountPath: /etc/mysql/my.cnf
+              subPath: my.cnf
             - name: my-data
               mountPath: /var/lib/mysql
 
-
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+            items:
+              - key: initdb.sql
+                path: initdb.sql
+              - key: my.cnf
+                path: my.cnf
           # Add your other container configurations here, like volumes, env vars, etc.
 
 

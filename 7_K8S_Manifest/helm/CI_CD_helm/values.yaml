@@ -32,13 +32,13 @@ selenium-service:
     port-4: 7900
 mysql-service:
   fullnameOverride: mysql-service
+  replicas: 3
   image:
     repository: mysql
     pullPolicy: IfNotPresent
     tag: latest 
   ports:
     containerPort: 3306
-  mountpath: /mnt/data
 
 playwright-service:
   fullnameOverride: playwright-service
