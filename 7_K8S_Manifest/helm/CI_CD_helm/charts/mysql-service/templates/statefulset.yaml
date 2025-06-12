@@ -5,39 +5,37 @@ metadata:
   labels:
     {{- include "mysql-service.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicas }}
-  serviceName: {{ include "mysql-service.fullname" . }}-headless
   selector:
     matchLabels:
       {{- include "mysql-service.selectorLabels" . | nindent 6 }}
+      #serviceName: "mysql"
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
         {{- include "mysql-service.labels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: root-password
-            ports:
-              - name: http
-                containerPort: {{ .Values.ports.containerPort }}
-                protocol: TCP
-          volumeMounts:
-            - name: mysql-initdb
-              mountPath: /docker-entrypoint-initdb.d
-            - name: mysql-initdb
-              mountPath: /etc/mysql/my.cnf
-              subPath: my.cnf
-            - name: my-data
-              mountPath: /var/lib/mysql
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: root-password
 
+        volumeMounts:
+          - name: mysql-initdb
+            mountPath: /docker-entrypoint-initdb.d
+          - name: mysql-initdb
+            mountPath: /etc/mysql/my.cnf
+            subPath: my.cnf
+          - name: mysql-data
+            mountPath: /var/lib/mysql
       volumes:
         - name: mysql-initdb
           configMap:
@@ -47,15 +45,11 @@ spec:
                 path: initdb.sql
               - key: my.cnf
                 path: my.cnf
-          # Add your other container configurations here, like volumes, env vars, etc.
-
-
   volumeClaimTemplates:
-    - metadata:
-        name: my-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-       # storageClass: "your-storage-class" # Replace with your storage class
-        resources:
-          requests:
-            storage: 500Mi
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 500Mi
