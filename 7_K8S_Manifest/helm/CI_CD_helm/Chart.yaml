@@ -4,3 +4,30 @@ description: root chart for CI/CI demo
 type: application
 version: 0.1.0
 
+dependencies:
+  - name: flask-example
+    version: "0.1.0"
+    repository: "file://./charts/flask-example"
+    condition: flask-example.enabled
+
+  - name: jenkins-server
+    version: "0.1.0"
+    repository: "file://./charts/jenkins-server"
+    condition: jenkins-server.enabled
+
+  - name: selenium-service
+    version: "0.1.0"
+    repository: "file://./charts/selenium-service"
+    condition: selenium-service.enabled
+
+  - name: playwright-service
+    version: "0.1.0"
+    repository: "file://./charts/playwright-service"
+    condition: playwright-service.enabled
+
+  - name: mysql-service
+    version: "0.1.0"
+    repository: "file://./charts/mysql-service"
+    condition: mysql-service.enabled
+
+
