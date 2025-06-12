@@ -58,4 +58,4 @@ spec:
        # storageClass: "your-storage-class" # Replace with your storage class
         resources:
           requests:
-            storage: 1Gi
+            storage: 500Mi
