@@ -170,27 +170,23 @@ def find_duplicates(input_list):
 
 
 
-def topKFrequent(words, k):
-    word_set = list(set(words))
-    print(word_set)
+def topKFrequent(text, k):
+    text = text.split(' ')
+    word_hash = {}
+    for each_text in text:
+        if each_text not in word_hash:
+            word_hash[each_text] = 1
+        elif each_text in word_hash:
+            word_hash[each_text] += 1
 
-    word_freq = []
-    for w in word_set:
-        word_freq.append("0")
-    for y in words:
-
-        for x in range(len(word_set)):
-            if y == word_set[x]:
-                word_freq[x] = int(word_freq[x]) + 1
-
-    new_tuple = zip(word_freq, word_set)
-
-    new_tuple = sorted(new_tuple,reverse=True)
+    word_hash = dict(sorted(word_hash.items(), key=lambda x: x[1], reverse=True))
     return_list = []
-    for i in range(k):
-        print(new_tuple[i])
-        return_list.append(new_tuple[i])
+    for key, value in word_hash.items():
+        if value >= k:
+            return_list.append(key)
     return return_list
+
+
 
 def validate_ipv4_general(ip_address):
     # Split the IP by dots
@@ -268,27 +264,16 @@ def valid_parentheses_nostack(input_string):
 
 def valid_parentheses_stack(input_string):
     stack = []
-    mapping = {')': '(', ']': '[', '}': '{'}  # Mapping of closing to opening brackets
+    mapping = {'(': ')', '[': ']', '{': '}'}
 
-    for char in input_string:
-
-        if char in mapping:
-
-            # Pop the top of the stack, or use a dummy value if the stack is empty
-            if stack:
-                top_element = stack.pop()
-            else:
-                top_element ='#'
-
-            # Check if the popped element matches the corresponding opening bracket
-            if mapping[char] != top_element:
+    for each_item in input_string:
+        if each_item in mapping:
+            stack.append(each_item)
+        elif each_item in mapping.values():
+            if not stack or each_item != mapping[stack.pop()]:
                 return False
         else:
-            # Push opening brackets onto the stack
-            stack.append(char)
-
-    # If the stack is empty, all parentheses are valid and closed
-
+            return False
 
     if not stack:
         return True
