@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "flask-backend.labels" . | nindent 4 }}
 spec:
-
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "flask-backend.selectorLabels" . | nindent 6 }}
@@ -21,6 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
