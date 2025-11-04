@@ -15,6 +15,11 @@ dependencies:
     repository: "file://./charts/flask-backend"
     condition: flask-backend.enabled
 
+  - name: react-frontend
+    version: "0.1.0"
+    repository: "file://./charts/react-frontend"
+    condition: react-frontend.enabled
+
   - name: jenkins-server
     version: "0.1.0"
     repository: "file://./charts/jenkins-server"
