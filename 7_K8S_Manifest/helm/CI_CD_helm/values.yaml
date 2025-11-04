@@ -25,6 +25,16 @@ flask-backend:
     type: ClusterIP
     port: 8088
 
+react-frontend:
+  fullnameOverride: react-frontend
+  image:
+    repository: ericxiwang/react-frontend
+    pullPolicy: IfNotPresent
+    tag: "110325"
+  service:
+    type: ClusterIP
+    port: 8087
+
 jenkins-server:
   fullnameOverride: jenkins-server
   image: docker.io/ericxiwang/jenkins
