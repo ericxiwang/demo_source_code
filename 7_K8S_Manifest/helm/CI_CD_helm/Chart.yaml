@@ -10,6 +10,11 @@ dependencies:
     repository: "file://./charts/flask-example"
     condition: flask-example.enabled
 
+  - name: flask-backend
+    version: "0.1.0"
+    repository: "file://./charts/flask-backend"
+    condition: flask-backend.enabled
+
   - name: jenkins-server
     version: "0.1.0"
     repository: "file://./charts/jenkins-server"
