@@ -14,6 +14,17 @@ flask-example:
     type: ClusterIP
     port: 8080
   mode: "dev" # "dev" or "prod"
+
+flask-backend:
+  fullnameOverride: flask-backend
+  image:
+    repository: ericxiwang/flask-backend
+    pullPolicy: IfNotPresent
+    tag: "110325"
+  service:
+    type: ClusterIP
+    port: 8088
+
 jenkins-server:
   fullnameOverride: jenkins-server
   image: docker.io/ericxiwang/jenkins
