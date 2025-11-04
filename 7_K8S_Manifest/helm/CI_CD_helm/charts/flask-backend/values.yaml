@@ -25,11 +25,6 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-resources:
-  requests:
-    cpu: 50m
-  limits:
-    cpu: 100m
 
 podAnnotations: {}
 podLabels: {}
@@ -61,11 +56,7 @@ readinessProbe:
     path: /
     port: http
 
-autoscaling:
-  enabled: yes
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
