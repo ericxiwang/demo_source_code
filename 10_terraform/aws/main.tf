@@ -1,9 +1,12 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
+# rds/main.tf
+module "db_instance" {
+  source = "./rds"
+  rds_region = var.aws_region
 
-
-
+}
 # -----------------------------
 # Security Group (allow SSH)
 # -----------------------------
@@ -30,11 +33,12 @@ resource "aws_security_group" "demo1_sg" {
 # -----------------------------
 # EC2 Instance (Ubuntu 22.04)
 # -----------------------------
-resource "aws_instance" "demo1" {
-  ami           = "ami-0c398cb65a93047f2" # Ubuntu 22.04 LTS (us-east-1)
-  instance_type = "t2.micro"
+resource "aws_instance" "jenkins-server" {
+  ami           = var.instance_ami
 
-  key_name               = "demo1"
+  instance_type = var.instance_type
+
+  key_name               = var.ec2-sshkey
   vpc_security_group_ids = [aws_security_group.demo1_sg.id]
 
   # -------------------------
@@ -49,6 +53,29 @@ resource "aws_instance" "demo1" {
 
 
   tags = {
-    Name = "demo1"
+    Name = "jenkins-server"
+  }
+}
+resource "aws_instance" "playwright-server" {
+  ami           = var.instance_ami
+
+  instance_type = var.instance_type
+
+  key_name               = var.ec2-sshkey
+  vpc_security_group_ids = [aws_security_group.demo1_sg.id]
+
+  # -------------------------
+  # Root EBS volume config
+  # -------------------------
+  root_block_device {
+    volume_size = 8 # GB
+    volume_type = "gp3"
+    encrypted   = false
+  }
+
+
+
+  tags = {
+    Name = "playwright-server"
   }
 }
