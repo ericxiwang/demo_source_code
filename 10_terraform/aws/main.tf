@@ -1,45 +1,35 @@
 provider "aws" {
   region = var.aws_region
 }
-# rds/main.tf
-module "db_instance" {
-  source = "./rds"
-  rds_region = var.aws_region
 
-}
-# -----------------------------
-# Security Group (allow SSH)
-# -----------------------------
-resource "aws_security_group" "demo1_sg" {
-  name        = "demo1-sg"
-  description = "Allow SSH inbound"
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#module "rds" {
+#  source = "./rds"
+#  rds_region = var.aws_region
+#}
+module "sg" {
+  source = "./sg"
+  ssh_sg_name = var.ssh_sg_name
+  playwright_sg_name = var.playwright_sg_name
 }
 
+
+
+
+########################################################################################
 # -----------------------------
-# EC2 Instance (Ubuntu 22.04)
+# EC2 Instance (Ubuntu 22.04) -- Jenkins Server
 # -----------------------------
+
 resource "aws_instance" "jenkins-server" {
+
+  depends_on = [module.sg] # Ensure security groups are created before EC2 instances
   ami           = var.instance_ami
-
   instance_type = var.instance_type
-
   key_name               = var.ec2-sshkey
-  vpc_security_group_ids = [aws_security_group.demo1_sg.id]
+  #vpc_security_group_ids = [aws_security_group.ssh_sg.id]
+
+  vpc_security_group_ids = [module.sg.ssh_sg_id]
+
 
   # -------------------------
   # Root EBS volume config
@@ -51,18 +41,26 @@ resource "aws_instance" "jenkins-server" {
   }
 
 
-
   tags = {
     Name = "jenkins-server"
   }
 }
+
+
+# -----------------------------
+# EC2 Instance (Ubuntu 22.04) --  Playwright Server
+# -----------------------------
 resource "aws_instance" "playwright-server" {
+
+  depends_on = [module.sg] # Ensure security groups are created before EC2 instances
   ami           = var.instance_ami
 
   instance_type = var.instance_type
 
+
   key_name               = var.ec2-sshkey
-  vpc_security_group_ids = [aws_security_group.demo1_sg.id]
+  #vpc_security_group_ids = [module.sg.ssh_sg.id, module.sg.playwright_sg.id]
+  vpc_security_group_ids = [module.sg.ssh_sg_id, module.sg.playwright_sg_id]
 
   # -------------------------
   # Root EBS volume config
