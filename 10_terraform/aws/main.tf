@@ -1,79 +1,36 @@
+
+
 provider "aws" {
   region = var.aws_region
 }
 
-#module "rds" {
-#  source = "./rds"
-#  rds_region = var.aws_region
-#}
+# -----------------------------------------------------------------
+# Reference existing VPC (or use your own data source / resource)
+# -----------------------------------------------------------------
+data "aws_vpc" "default" {
+  default = true
+}
+
+module "create_vpc" {
+  source = "./create_vpc"
+
+  #demo_cidr_block          = var.demo_cidr_block
+  #demo_availability_zone   = var.demo_availability_zone
+  #common_tags              = var.common_tags
+}
+
+# -----------------------------------------------------------------
+# Call the security_groups module
+# -----------------------------------------------------------------
 module "sg" {
   source = "./sg"
-  ssh_sg_name = var.ssh_sg_name
-  playwright_sg_name = var.playwright_sg_name
+
+  vpc_id        = var.vpc_id != "" ? var.vpc_id : data.aws_vpc.default.id
+  demo_sg_list  = var.demo_sg_list
+  allowed_cidr  = "0.0.0.0/0"
+  tags          = var.common_tags
 }
 
-
-
-
-########################################################################################
-# -----------------------------
-# EC2 Instance (Ubuntu 22.04) -- Jenkins Server
-# -----------------------------
-
-resource "aws_instance" "jenkins-server" {
-
-  depends_on = [module.sg] # Ensure security groups are created before EC2 instances
-  ami           = var.instance_ami
-  instance_type = var.instance_type
-  key_name               = var.ec2-sshkey
-  #vpc_security_group_ids = [aws_security_group.ssh_sg.id]
-
-  vpc_security_group_ids = [module.sg.ssh_sg_id]
-
-
-  # -------------------------
-  # Root EBS volume config
-  # -------------------------
-  root_block_device {
-    volume_size = 8 # GB
-    volume_type = "gp3"
-    encrypted   = false
-  }
-
-
-  tags = {
-    Name = "jenkins-server"
-  }
-}
-
-
-# -----------------------------
-# EC2 Instance (Ubuntu 22.04) --  Playwright Server
-# -----------------------------
-resource "aws_instance" "playwright-server" {
-
-  depends_on = [module.sg] # Ensure security groups are created before EC2 instances
-  ami           = var.instance_ami
-
-  instance_type = var.instance_type
-
-
-  key_name               = var.ec2-sshkey
-  #vpc_security_group_ids = [module.sg.ssh_sg.id, module.sg.playwright_sg.id]
-  vpc_security_group_ids = [module.sg.ssh_sg_id, module.sg.playwright_sg_id]
-
-  # -------------------------
-  # Root EBS volume config
-  # -------------------------
-  root_block_device {
-    volume_size = 8 # GB
-    volume_type = "gp3"
-    encrypted   = false
-  }
-
-
-
-  tags = {
-    Name = "playwright-server"
-  }
-}
+# -----------------------------------------------------------------
+# Example: use the module outputs in another resource
+# -----------------------------------------------------------------

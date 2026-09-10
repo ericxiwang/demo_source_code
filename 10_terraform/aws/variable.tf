@@ -34,3 +34,27 @@ variable "playwright_sg_name" {
   default     = "playwright_sg"
 }
 
+variable "demo_sg_list" {
+  description = "Map of SG name to port"
+  type        = map(string)
+  default = {
+    ssh_sg        = "22"
+    playwright_sg = "3000"
+    rds_sg        = "3306"
+  }
+}
+
+variable "common_tags" {
+  type = map(string)
+  default = {
+    Project     = "demo"
+    Environment = "dev"
+    ManagedBy   = "terraform"
+  }
+}
+
+variable "vpc_id" {
+  description = "VPC where SGs will be created"
+  type        = string
+  default     = "vpc-0a14b4cec945800d2"
+}

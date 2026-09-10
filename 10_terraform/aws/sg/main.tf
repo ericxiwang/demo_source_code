@@ -1,17 +1,16 @@
+resource "aws_security_group" "demo" {
+  for_each = var.demo_sg_list
 
-# -----------------------------
-# Security Group (allow SSH)
-# -----------------------------
-resource "aws_security_group" "ssh_sg" {
-  name        = var.ssh_sg_name
-  description = "Allow SSH inbound"
-  # SSH Access
+  name        = each.key
+  description = "Security group for ${each.key} on port ${each.value}"
+  vpc_id      = var.vpc_id
+
   ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
+    description = "Allow port ${each.value}"
+    from_port   = tonumber(each.value)
+    to_port     = tonumber(each.value)
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.allowed_cidr]
   }
 
   egress {
@@ -20,35 +19,6 @@ resource "aws_security_group" "ssh_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name = "allow-ssh"
-  }
-}
 
-
-# -----------------------------
-# Security Group (allow playwright access)
-# -----------------------------
-resource "aws_security_group" "playwright_sg" {
-  name        = var.playwright_sg_name
-  description = "Allow Playwright inbound"
-
-
-   # Playwright Server Access (e.g., for browserless)
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "allow-playwright"
-  }
+  tags = merge(var.tags, { Name = each.key })
 }
