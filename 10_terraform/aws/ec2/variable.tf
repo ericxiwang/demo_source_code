@@ -19,7 +19,7 @@ variable ec2_tags {
 }
 
 variable subnet_id {
-  description = "The subnet ID where the EC2 instance will be launched"
+  description = "The ID of the first subnet where the EC2 instance will be launched"
   type        = string
 #  default     = "subnet-0a78aff982c3cbc41" # Example Subnet ID, replace with your own
 }

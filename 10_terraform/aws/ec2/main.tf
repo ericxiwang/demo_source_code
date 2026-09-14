@@ -1,7 +1,7 @@
 resource "aws_instance" "demo_ec2" {
   ami           = var.ec2_config.ami
   instance_type = var.ec2_config.instance_type
-  subnet_id     = var.subnet_id
+  subnet_id     = var.subnet_id #first subnet ID from the output of the VPC module
   vpc_security_group_ids = var.vpc_security_group_ids
   key_name     = var.key_name
   

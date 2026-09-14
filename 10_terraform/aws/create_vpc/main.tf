@@ -8,18 +8,29 @@ resource "aws_vpc" "demo_main" {
   }
 }
 
-resource "aws_subnet" "demo_subnet" {
+resource "aws_subnet" "demo_subnet_1" {
 
   vpc_id                  = aws_vpc.demo_main.id
-  cidr_block              = var.demo_subnet_cidr_block
-  availability_zone       = var.demo_availability_zone # Change to your desired AZ
+  cidr_block              = var.demo_subnet_cidr_block_1
+  availability_zone       = var.demo_availability_zone_1 # Change to your desired AZ
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "demo-subnet"
+    Name = "demo-subnet-1"
   }
 }
 
+resource "aws_subnet" "demo_subnet_2" {
+
+  vpc_id                  = aws_vpc.demo_main.id
+  cidr_block              = var.demo_subnet_cidr_block_2
+  availability_zone       = var.demo_availability_zone_2 # Change to your desired AZ
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "demo-subnet-2"
+  }
+}
 
 
 resource "aws_internet_gateway" "demo_gateway" {
@@ -41,7 +52,12 @@ resource "aws_route_table" "demo_route_table" {
 }
 
 
-resource "aws_route_table_association" "demo_route_table_assoc" {
-  subnet_id      = aws_subnet.demo_subnet.id
+resource "aws_route_table_association" "demo_route_table_assoc_1" {
+  subnet_id      = aws_subnet.demo_subnet_1.id
+  route_table_id = aws_route_table.demo_route_table.id
+}
+
+resource "aws_route_table_association" "demo_route_table_assoc_2" {
+  subnet_id      = aws_subnet.demo_subnet_2.id
   route_table_id = aws_route_table.demo_route_table.id
 }

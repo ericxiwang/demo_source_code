@@ -23,5 +23,9 @@ variable "allowed_cidr" {
 variable "tags" {
   description = "Common tags applied to all resources"
   type        = map(string)
-  default     = {}
+  default = {
+    Project     = "demo"
+    Environment = "dev"
+    ManagedBy   = "terraform"
+  }
 }

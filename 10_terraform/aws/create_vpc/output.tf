@@ -3,9 +3,14 @@ output "demo_vpc_id" {
   value       = aws_vpc.demo_main.id
 }
 
-output "demo_subnet_id" {
-  description = "The ID of the demo subnet"
-  value       = aws_subnet.demo_subnet.id
+output "demo_subnet_id_1" {
+  description = "The ID of the first demo subnet"
+  value       = aws_subnet.demo_subnet_1.id
+}
+
+output "demo_subnet_id_2" {
+  description = "The ID of the second demo subnet"
+  value       = aws_subnet.demo_subnet_2.id
 }
 
 output "demo_internet_gateway_id" {
